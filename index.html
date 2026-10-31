@@ -93,7 +93,13 @@
   </footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-  
+  const SUPABASE_URL = 'https://cokbgcuqkhbfdxkzemiw.supabase.co';
+const SUPABASE_ANON_KEY = 'እዚህ የራስህን Publishable key አስገባ';
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
     function contactSeller(product){
       alert('You selected: '+product+'. Seller contact will be connected in the next stage.');
     }
