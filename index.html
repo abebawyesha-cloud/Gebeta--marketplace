@@ -78,11 +78,39 @@
     </section>
 
     <section class="section" id="sell">
-      <div class="banner">
-        <div><h2>Start Selling on Gebeta</h2><p>Bring your products, digital goods and services to one marketplace.</p></div>
-        <button class="header-btn" onclick="alert('Seller registration will be available in the next stage.')">Become a Seller</button>
-      </div>
-    </section>
+  <div class="container">
+    <h2>Start Selling on Gebeta</h2>
+    <p>Register your product and reach customers across Ethiopia.</p>
+
+    <form id="productForm">
+      <input type="text" id="productTitle" placeholder="Product Name" required>
+
+      <textarea id="productDescription" placeholder="Product Description" required></textarea>
+
+      <select id="productCategory" required>
+        <option value="">Select Category</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Shoes">Shoes</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Home Goods">Home Goods</option>
+        <option value="Digital">Digital Products</option>
+        <option value="Services">Services</option>
+      </select>
+
+      <input type="number" id="productPrice" placeholder="Price in ETB" min="1" required>
+
+      <input type="text" id="sellerName" placeholder="Seller Name" required>
+
+      <input type="text" id="sellerLocation" placeholder="Your City / Area" required>
+
+      <input type="tel" id="sellerPhone" placeholder="Phone Number" required>
+
+      <button type="submit" class="header-btn">Publish Product</button>
+    </form>
+
+    <p id="formMessage"></p>
+  </div>
+</section>
   </main>
 
   <footer class="footer">
