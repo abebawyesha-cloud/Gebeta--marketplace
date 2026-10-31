@@ -128,6 +128,32 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
+    document.getElementById('productForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  const message = document.getElementById('formMessage');
+  message.textContent = 'Publishing...';
+
+  const product = {
+    title: document.getElementById('productTitle').value.trim(),
+    description: document.getElementById('productDescription').value.trim(),
+    category: document.getElementById('productCategory').value,
+    price: Number(document.getElementById('productPrice').value),
+    seller_name: document.getElementById('sellerName').value.trim(),
+    location: document.getElementById('sellerLocation').value.trim(),
+    phone: document.getElementById('sellerPhone').value.trim()
+  };
+
+  const { error } = await supabaseClient.from('products').insert([product]);
+
+  if (error) {
+    message.textContent = 'Error: ' + error.message;
+    return;
+  }
+
+  message.textContent = 'Product published successfully!';
+  document.getElementById('productForm').reset();
+});
     function contactSeller(product){
       alert('You selected: '+product+'. Seller contact will be connected in the next stage.');
     }
