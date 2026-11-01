@@ -333,17 +333,25 @@ loadProducts();
     '_blank'
   );
 }
-    function searchProducts(){
-      const query=document.getElementById('searchInput').value.toLowerCase().trim();
-      const products=document.querySelectorAll('.product');
-      let found=0;
-      products.forEach(product=>{
-        const matches=product.innerText.toLowerCase().includes(query);
-        product.style.display=matches?'':'none';
-        if(matches)found++;
-      });
-      document.getElementById('noResults').style.display=found?'none':'block';
-    }
+  function searchProducts(){
+  const query = document.getElementById('searchInput').value.toLowerCase().trim();
+  const products = document.querySelectorAll('.product');
+  let found = 0;
+
+  products.forEach(product => {
+    const text = product.innerText.toLowerCase();
+    const matches = text.includes(query);
+
+    product.style.display = matches ? '' : 'none';
+
+    if (matches) found++;
+  });
+
+  const noResults = document.getElementById('noResults');
+  if (noResults) {
+    noResults.style.display = found ? 'none' : 'block';
+  }
+}
     document.getElementById('searchInput').addEventListener('keydown',function(event){
       if(event.key==='Enter')searchProducts();
     });
