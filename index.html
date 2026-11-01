@@ -214,50 +214,79 @@ const supabaseClient = window.supabase.createClient(
 
     const image = document.createElement('div');
     image.className = 'product-img';
+const images = product.image_urls && product.image_urls.length > 0
+  ? product.image_urls
+  : (product.image_url ? [product.image_url] : []);
 
-    const imageUrl = product.image_urls && product.image_urls.length > 0
-      ? product.image_urls[0]
-      : product.image_url;
-    if (imageUrl) {
+if (images.length > 0) {
+  let currentIndex = 0;
+
   const photo = document.createElement('img');
-  photo.src = imageUrl;
+  photo.src = images[0];
   photo.alt = product.title;
   photo.style.width = '100%';
   photo.style.height = '100%';
   photo.style.objectFit = 'cover';
   photo.style.cursor = 'zoom-in';
 
+  if (images.length > 1) {
+    const controls = document.createElement('div');
+    controls.style.display = 'flex';
+    controls.style.justifyContent = 'space-between';
+    controls.style.alignItems = 'center';
+    controls.style.padding = '8px';
+
+    const previous = document.createElement('button');
+    previous.textContent = '❮';
+
+    const next = document.createElement('button');
+    next.textContent = '❯';
+
+    const count = document.createElement('span');
+    count.textContent = '1 / ' + images.length;
+
+    previous.onclick = function() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      photo.src = images[currentIndex];
+      count.textContent = (currentIndex + 1) + ' / ' + images.length;
+    };
+
+    next.onclick = function() {
+      currentIndex = (currentIndex + 1) % images.length;
+      photo.src = images[currentIndex];
+      count.textContent = (currentIndex + 1) + ' / ' + images.length;
+    };
+
+    controls.append(previous, count, next);
+    image.append(photo, controls);
+  } else {
+    image.appendChild(photo);
+  }
+
   photo.onclick = function() {
     const modal = document.createElement('div');
-
     modal.style.position = 'fixed';
-    modal.style.top = '0';
-    modal.style.left = '0';
-    modal.style.width = '100%';
-    modal.style.height = '100%';
-    modal.style.background = 'rgba(0,0,0,0.9)';
+    modal.style.inset = '0';
+    modal.style.background = 'rgba(0,0,0,0.95)';
+    modal.style.zIndex = '99999';
     modal.style.display = 'flex';
     modal.style.alignItems = 'center';
     modal.style.justifyContent = 'center';
-    modal.style.zIndex = '99999';
-    modal.style.cursor = 'zoom-out';
 
     const bigPhoto = document.createElement('img');
-    bigPhoto.src = imageUrl;
+    bigPhoto.src = images[currentIndex];
     bigPhoto.style.maxWidth = '95%';
     bigPhoto.style.maxHeight = '90%';
     bigPhoto.style.objectFit = 'contain';
 
     modal.appendChild(bigPhoto);
-
-    modal.onclick = function() {
-      modal.remove();
-    };
-
+    modal.onclick = () => modal.remove();
     document.body.appendChild(modal);
   };
 
-  image.appendChild(photo);
+} else {
+  image.textContent = '🛍️';
+}
 } else {
   image.textContent = '🛍️';
 }
