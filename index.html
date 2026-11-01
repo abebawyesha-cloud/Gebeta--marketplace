@@ -86,6 +86,235 @@
       <input type="text" id="productTitle" placeholder="Product Name" required>
 
       <textarea id="productDescription" placeholder="Product Description" required></textarea>
+      
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gebeta is Ethiopia's digital marketplace for products, digital goods and services.">
+  <title>Gebeta | Ethiopian Digital Marketplace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Ethiopic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="topbar">Welcome to Gebeta — Ethiopia's Digital Marketplace 🇪🇹</div>
+  <header>
+    <a class="logo" href="#">Gebeta<span>🇪🇹</span></a>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#digital">Digital</a>
+      <a href="#services">Services</a>
+      <a href="#sell">Sell on Gebeta</a>
+    </nav>
+    <button class="header-btn" onclick="document.getElementById('sell').scrollIntoView({behavior:'smooth'})">Start Selling</button>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div>
+        <h1>Discover Ethiopia.<br>Shop on Gebeta.</h1>
+        <p>Find products, digital goods and creative services from sellers and creators across Ethiopia.</p>
+        <div class="search">
+          <input id="searchInput" placeholder="What are you looking for?">
+          <button onclick="searchProducts()">Search</button>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="big">🛍️</div>
+        <h3>One Marketplace. Many Possibilities.</h3>
+        <p>Products • Digital Goods • Services</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><h2>Explore Categories</h2><p class="muted">Find what you need</p></div></div>
+      <div class="categories">
+        <a class="category" href="#shop"><div class="emoji">👕</div><strong>Clothing</strong></a>
+        <a class="category" href="#shop"><div class="emoji">👟</div><strong>Shoes</strong></a>
+        <a class="category" href="#shop"><div class="emoji">📱</div><strong>Electronics</strong></a>
+        <a class="category" href="#shop"><div class="emoji">🏠</div><strong>Home Goods</strong></a>
+        <a class="category" href="#digital"><div class="emoji">📚</div><strong>Digital</strong></a>
+        <a class="category" href="#services"><div class="emoji">💻</div><strong>Services</strong></a>
+      </div>
+    </section>
+
+    <section class="section" id="shop">
+      <div class="section-head"><div><h2>Featured Products</h2><p class="muted">Discover products from local sellers</p></div><a href="#shop">View all →</a></div>
+      <div class="product-grid" id="productGrid">
+        <article class="product"><div class="product-img">👟</div><div class="product-info"><small>Shoes</small><h3>Sports Shoes</h3><div class="price">ETB 2,500</div><button onclick="contactSeller('Sports Shoes')">Contact Seller</button></div></article>
+        <article class="product"><div class="product-img">👜</div><div class="product-info"><small>Fashion</small><h3>Fashion Bag</h3><div class="price">ETB 1,800</div><button onclick="contactSeller('Fashion Bag')">Contact Seller</button></div></article>
+        <article class="product"><div class="product-img">📱</div><div class="product-info"><small>Electronics</small><h3>Smartphone</h3><div class="price">ETB 15,000</div><button onclick="contactSeller('Smartphone')">Contact Seller</button></div></article>
+        <article class="product"><div class="product-img">🏠</div><div class="product-info"><small>Home Goods</small><h3>Home Decor</h3><div class="price">ETB 3,500</div><button onclick="contactSeller('Home Decor')">Contact Seller</button></div></article>
+      </div>
+      <p id="noResults" style="display:none;margin-top:20px;color:#777">No products found.</p>
+    </section>
+
+    <section class="section" id="digital">
+      <div class="banner">
+        <div><h2>Digital Products 📚</h2><p>Discover e-books, PDF guides, templates and learning resources.</p></div>
+        <a class="header-btn" href="#shop">Explore Digital</a>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="banner">
+        <div><h2>Creator Services 💻</h2><p>Find designers, video editors, writers and digital professionals.</p></div>
+        <a class="header-btn" href="#sell">Offer a Service</a>
+      </div>
+    </section>
+
+    <section class="section" id="sell">
+  <div class="container">
+    <h2>Start Selling on Gebeta</h2>
+    <p>Register your product and reach customers across Ethiopia.</p>
+
+    <form id="productForm">
+      <input type="text" id="productTitle" placeholder="Product Name" required>
+
+      <textarea id="productDescription" placeholder="Product Description" required></textarea>
+
+      <select id="productCategory" required>
+        <option value="">Select Category</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Shoes">Shoes</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Home Goods">Home Goods</option>
+        <option value="Digital">Digital Products</option>
+        <option value="Services">Services</option>
+      </select>
+
+      <input type="number" id="productPrice" placeholder="Price in ETB" min="1" required>
+
+      <input type="text" id="sellerName" placeholder="Seller Name" required>
+
+      <input type="text" id="sellerLocation" placeholder="Your City / Area" required>
+
+      <input type="tel" id="sellerPhone" placeholder="Phone Number" required>
+
+      <button type="submit" class="header-btn">Publish Product</button>
+    </form>
+
+    <p id="formMessage"></p>
+  </div>
+</section>
+  </main>
+
+  <footer class="footer">
+    <h2>Gebeta 🇪🇹</h2>
+    <p>Ethiopia's Digital Marketplace</p>
+    <p>Discover local products, digital goods and creative services.</p>
+    <p>© 2026 Gebeta. All rights reserved.</p>
+  </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  const SUPABASE_URL = 'https://cokbgcuqkhbfdxkzemiw.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_IC3opPE5bWjG-uoLsYfWcw_uWXNrvOB ';
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+    document.getElementById('productForm').addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  const message = document.getElementById('formMessage');
+  message.textContent = 'Publishing...';
+
+  const product = {
+    title: document.getElementById('productTitle').value.trim(),
+    description: document.getElementById('productDescription').value.trim(),
+    category: document.getElementById('productCategory').value,
+    price: Number(document.getElementById('productPrice').value),
+    seller_name: document.getElementById('sellerName').value.trim(),
+    location: document.getElementById('sellerLocation').value.trim(),
+    phone: document.getElementById('sellerPhone').value.trim()
+  };
+
+  const { error } = await supabaseClient.from('products').insert([product]);
+
+  if (error) {
+    message.textContent = 'Error: ' + error.message;
+    return;
+  }
+
+  message.textContent = 'Product published successfully!';
+  document.getElementById('productForm').reset();
+      await loadProducts();
+});
+    async function loadProducts() {
+  const { data, error } = await supabaseClient
+    .from('products')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Could not load products:', error.message);
+    return;
+  }
+
+  const productGrid = document.getElementById('productGrid');
+
+  // Remove previously loaded database products
+  productGrid.querySelectorAll('.database-product').forEach(card => card.remove());
+
+  data.forEach(product => {
+    const card = document.createElement('article');
+    card.className = 'product database-product';
+
+    const image = document.createElement('div');
+    image.className = 'product-img';
+    image.textContent = '🛍️';
+
+    const info = document.createElement('div');
+    info.className = 'product-info';
+
+    const category = document.createElement('small');
+    category.textContent = product.category;
+
+    const title = document.createElement('h3');
+    title.textContent = product.title;
+
+    const price = document.createElement('div');
+    price.className = 'price';
+    price.textContent = 'ETB ' + Number(product.price).toLocaleString();
+
+    const location = document.createElement('p');
+    location.textContent = product.location;
+
+    const button = document.createElement('button');
+    button.textContent = 'Contact Seller';
+    button.onclick = () => contactSeller(product.title);
+
+    info.append(category, title, price, location, button);
+    card.append(image, info);
+    productGrid.prepend(card);
+  });
+}
+
+loadProducts();
+    function contactSeller(product){
+      alert('You selected: '+product+'. Seller contact will be connected in the next stage.');
+    }
+    function searchProducts(){
+      const query=document.getElementById('searchInput').value.toLowerCase().trim();
+      const products=document.querySelectorAll('.product');
+      let found=0;
+      products.forEach(product=>{
+        const matches=product.innerText.toLowerCase().includes(query);
+        product.style.display=matches?'':'none';
+        if(matches)found++;
+      });
+      document.getElementById('noResults').style.display=found?'none':'block';
+    }
+    document.getElementById('searchInput').addEventListener('keydown',function(event){
+      if(event.key==='Enter')searchProducts();
+    });
+  </script>
+</body>
+</html>
 
       <select id="productCategory" required>
         <option value="">Select Category</option>
