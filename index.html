@@ -87,6 +87,7 @@
       <input type="text" id="productTitle" placeholder="Product Name" required>
 
       <textarea id="productDescription" placeholder="Product Description" required></textarea>
+      <input type="file" id="productImages" accept="image/jpeg,image/png,image/webp" multiple required>
 
       <select id="productCategory" required>
         <option value="">Select Category</option>
@@ -135,6 +136,36 @@ const supabaseClient = window.supabase.createClient(
   const message = document.getElementById('formMessage');
   message.textContent = 'Publishing...';
 
+  const files = document.getElementById('productImages').files;
+
+  if (!files.length) {
+    message.textContent = 'Please select at least one photo.';
+    return;
+  }
+
+  const imageUrls = [];
+
+  for (const file of files) {
+    const fileName = Date.now() + '-' + file.name.replace(/\s+/g, '-');
+
+    const { error: uploadError } = await supabaseClient
+      .storage
+      .from('product-image')
+      .upload(fileName, file);
+
+    if (uploadError) {
+      message.textContent = 'Photo upload error: ' + uploadError.message;
+      return;
+    }
+
+    const { data } = supabaseClient
+      .storage
+      .from('product-image')
+      .getPublicUrl(fileName);
+
+    imageUrls.push(data.publicUrl);
+  }
+
   const product = {
     title: document.getElementById('productTitle').value.trim(),
     description: document.getElementById('productDescription').value.trim(),
@@ -142,10 +173,14 @@ const supabaseClient = window.supabase.createClient(
     price: Number(document.getElementById('productPrice').value),
     seller_name: document.getElementById('sellerName').value.trim(),
     location: document.getElementById('sellerLocation').value.trim(),
-    phone: document.getElementById('sellerPhone').value.trim()
+    phone: document.getElementById('sellerPhone').value.trim(),
+    image_url: imageUrls[0],
+    image_urls: imageUrls
   };
 
-  const { error } = await supabaseClient.from('products').insert([product]);
+  const { error } = await supabaseClient
+    .from('products')
+    .insert([product]);
 
   if (error) {
     message.textContent = 'Error: ' + error.message;
@@ -154,7 +189,8 @@ const supabaseClient = window.supabase.createClient(
 
   message.textContent = 'Product published successfully!';
   document.getElementById('productForm').reset();
-      await loadProducts();
+
+  await loadProducts();
 });
     async function loadProducts() {
   const { data, error } = await supabaseClient
