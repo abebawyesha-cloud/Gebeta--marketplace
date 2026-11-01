@@ -317,9 +317,22 @@ if (images.length > 0) {
 }
 
 loadProducts();
-    function contactSeller(product){
-      alert('You selected: '+product+'. Seller contact will be connected in the next stage.');
-    }
+    function contactSeller(phone, product){
+  if (!phone) {
+    alert('Seller phone number is not available.');
+    return;
+  }
+
+  const cleanPhone = phone.replace(/\D/g, '');
+  const message = encodeURIComponent(
+    'ሰላም፣ በGebeta ላይ ስለለጠፉት ' + product + ' ምርት መረጃ መጠየቅ እፈልጋለሁ።'
+  );
+
+  window.open(
+    'https://wa.me/' + cleanPhone + '?text=' + message,
+    '_blank'
+  );
+}
     function searchProducts(){
       const query=document.getElementById('searchInput').value.toLowerCase().trim();
       const products=document.querySelectorAll('.product');
