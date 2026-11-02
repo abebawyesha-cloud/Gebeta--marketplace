@@ -361,7 +361,7 @@ if (images.length > 0) {
 
     const button = document.createElement('button');
     button.textContent = 'Contact Seller';
-    button.onclick = () => contactSeller(product.title);
+  button.onclick = () => contactSeller(product.phone, product.title);
 
     info.append(category, title, description, price, location, button);
     card.append(image, info);
