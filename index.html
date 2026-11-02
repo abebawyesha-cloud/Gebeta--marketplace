@@ -51,7 +51,7 @@
     <div class="emoji">👟</div><strong>Shoes</strong>
   </a>
   <a class="category" href="#shop" onclick="filterCategory('Electronics'); return false;">
-    <div class="emoji">📱</div><strong>Electronics</strong>
+    <div class="emoji">📱</div><strong>Electronics</stron
   </a>
   <a class="category" href="#shop" onclick="filterCategory('Home Goods'); return false;">
     <div class="emoji">🏠</div><strong>Home Goods</strong>
@@ -237,16 +237,15 @@ const supabaseClient = window.supabase.createClient(
 
   await loadProducts();
 });
-    async function loadProducts() {
+  async function loadProducts() {
   const { data, error } = await supabaseClient
     .from('products')
-    .select('*')
-    .order('created_at', { ascending: false });
+    .select('*');
 
   if (error) {
     console.error('Could not load products:', error.message);
     return;
-  }
+  }  
 
   const productGrid = document.getElementById('productGrid');
 
