@@ -362,6 +362,44 @@ if (images.length > 0) {
 }
 
 loadProducts();
+    
+    function openProductDetails(product) {
+  document.getElementById('detailTitle').textContent =
+    product.title || '';
+
+  document.getElementById('detailPrice').textContent =
+    'ETB ' + (product.price || '');
+
+  document.getElementById('detailCategory').textContent =
+    'Category: ' + (product.category || '');
+
+  document.getElementById('detailDescription').textContent =
+    product.description || 'No description available';
+
+  document.getElementById('detailLocation').textContent =
+    'Location: ' + (product.location || '');
+
+  document.getElementById('detailSeller').textContent =
+    'Seller: ' + (product.seller || '');
+
+  document.getElementById('detailPhone').textContent =
+    'Phone: ' + (product.phone || '');
+
+  document.getElementById('detailImage').src =
+    product.image || '';
+
+  document.getElementById('detailContact').onclick = function() {
+    contactSeller(product.phone, product.title);
+  };
+
+  document.getElementById('productModal').style.display = 'flex';
+}
+
+function closeProductDetails(event) {
+  if (!event || event.target.id === 'productModal') {
+    document.getElementById('productModal').style.display = 'none';
+  }
+}
     function contactSeller(phone, product){
   if (!phone) {
     alert('Seller phone number is not available.');
