@@ -483,7 +483,11 @@ function filterCategory(category){
 
     const matches = text.includes(query);
 
-    product.style.display = matches ? 'block' : 'none';
+if (matches) {
+  product.style.removeProperty('display');
+} else {
+  product.style.setProperty('display', 'none', 'important');
+}
 
     if (matches) found++;
   });
