@@ -469,7 +469,12 @@ function searchProducts(){
   let found = 0;
 
   products.forEach(product => {
-    const text = product.textContent.toLowerCase();
+    const text = (
+  product.textContent + ' ' +
+  product.dataset.title + ' ' +
+  product.dataset.description + ' ' +
+  product.dataset.category
+).toLowerCase();
     const matches = text.includes(query);
 
     product.style.display = matches ? '' : 'none';
