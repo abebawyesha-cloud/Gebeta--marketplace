@@ -360,7 +360,23 @@ if (images.length > 0) {
     productGrid.prepend(card);
   });
 }
+document.getElementById('productGrid').addEventListener('click', function(event) {
+  if (event.target.closest('button')) return;
 
+  const card = event.target.closest('.product');
+  if (!card) return;
+
+  openProductDetails({
+    title: card.dataset.title || card.querySelector('h3')?.textContent || '',
+    description: card.dataset.description || '',
+    category: card.dataset.category || card.querySelector('small')?.textContent || '',
+    price: card.dataset.price || '',
+    location: card.dataset.location || '',
+    seller: card.dataset.seller || '',
+    phone: card.dataset.phone || '',
+    image: card.dataset.image || card.querySelector('img')?.src || ''
+  });
+});
 loadProducts();
     
     function openProductDetails(product) {
