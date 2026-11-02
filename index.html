@@ -483,6 +483,7 @@ function filterCategory(category){
       .toLowerCase();
 
     const matches = text.includes(query);
+    alert('Query: ' + query + '\nProduct text: ' + text + '\nMatches: ' + matches);
 
 if (matches) {
   product.style.removeProperty('display');
