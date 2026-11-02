@@ -256,6 +256,14 @@ const supabaseClient = window.supabase.createClient(
   data.forEach(product => {
     const card = document.createElement('article');
     card.className = 'product database-product';
+    card.dataset.title = product.title || '';
+card.dataset.description = product.description || '';
+card.dataset.category = product.category || '';
+card.dataset.price = product.price || '';
+card.dataset.location = product.location || '';
+card.dataset.seller = product.seller_name || '';
+card.dataset.phone = product.phone || '';
+card.dataset.image = images[0] || '';
 
     const image = document.createElement('div');
     image.className = 'product-img';
