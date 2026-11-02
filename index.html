@@ -465,6 +465,7 @@ function searchProducts(){
   const query = document.getElementById('searchInput').value
     .toLowerCase().trim();
   const products = document.querySelectorAll('#productGrid .product');
+  console.log('Products found:', products.length);
   let found = 0;
 
   products.forEach(product => {
