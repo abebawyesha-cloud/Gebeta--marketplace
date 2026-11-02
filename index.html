@@ -464,7 +464,7 @@ function filterCategory(category){
 function searchProducts(){
   const query = document.getElementById('searchInput').value
     .toLowerCase().trim();
-
+  alert('Search is working: ' + query);
   const products = document.querySelectorAll('#productGrid .product');
   let found = 0;
 
