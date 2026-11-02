@@ -43,14 +43,29 @@
 
     <section class="section">
       <div class="section-head"><div><h2>Explore Categories</h2><p class="muted">Find what you need</p></div></div>
-      <div class="categories">
-        <a class="category" href="#shop"><div class="emoji">👕</div><strong>Clothing</strong></a>
-        <a class="category" href="#shop"><div class="emoji">👟</div><strong>Shoes</strong></a>
-        <a class="category" href="#shop"><div class="emoji">📱</div><strong>Electronics</strong></a>
-        <a class="category" href="#shop"><div class="emoji">🏠</div><strong>Home Goods</strong></a>
-        <a class="category" href="#digital"><div class="emoji">📚</div><strong>Digital</strong></a>
-        <a class="category" href="#services"><div class="emoji">💻</div><strong>Services</strong></a>
-      </div>
+<div class="categories">
+  <a class="category" href="#shop" onclick="filterCategory('Clothing'); return false;">
+    <div class="emoji">👕</div><strong>Clothing</strong>
+  </a>
+  <a class="category" href="#shop" onclick="filterCategory('Shoes'); return false;">
+    <div class="emoji">👟</div><strong>Shoes</strong>
+  </a>
+  <a class="category" href="#shop" onclick="filterCategory('Electronics'); return false;">
+    <div class="emoji">📱</div><strong>Electronics</strong>
+  </a>
+  <a class="category" href="#shop" onclick="filterCategory('Home Goods'); return false;">
+    <div class="emoji">🏠</div><strong>Home Goods</strong>
+  </a>
+  <a class="category" href="#shop" onclick="filterCategory('Digital'); return false;">
+    <div class="emoji">📚</div><strong>Digital</strong>
+  </a>
+  <a class="category" href="#shop" onclick="filterCategory('Services'); return false;">
+    <div class="emoji">💻</div><strong>Services</strong>
+  </a>
+  <a class="category" href="#shop" onclick="filterCategory('All'); return false;">
+    <div class="emoji">🛍️</div><strong>All Products</strong>
+  </a>
+</div>
     </section>
 
     <section class="section" id="shop">
@@ -333,6 +348,26 @@ loadProducts();
     '_blank'
   );
 }
+function filterCategory(category){
+  const products = document.querySelectorAll('#productGrid .product');
+  let found = 0;
+
+  products.forEach(product => {
+    const productCategory = product.querySelector('small')?.textContent.trim().toLowerCase() || '';
+
+    const matches = category === 'All' ||
+      productCategory === category.toLowerCase();
+
+    product.style.display = matches ? '' : 'none';
+
+    if(matches) found++;
+  });
+
+  document.getElementById('noResults').style.display =
+    found === 0 ? 'block' : 'none';
+
+  document.getElementById('searchInput').value = '';
+}    
 function searchProducts(){
   const query = document.getElementById('searchInput').value
     .toLowerCase().trim();
