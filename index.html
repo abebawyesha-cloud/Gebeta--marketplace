@@ -467,6 +467,7 @@ function filterCategory(category){
 
   const products = document.querySelectorAll('#productGrid .product');
   let found = 0;
+      alert('Products detected: ' + products.length);
 
   products.forEach(product => {
     const title = product.dataset.title ||
