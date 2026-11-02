@@ -316,27 +316,20 @@ if (images.length > 0) {
   } else {
     image.appendChild(photo);
   }
+photo.onclick = function(event) {
+  event.stopPropagation();
 
-  photo.onclick = function() {
-    const modal = document.createElement('div');
-    modal.style.position = 'fixed';
-    modal.style.inset = '0';
-    modal.style.background = 'rgba(0,0,0,0.95)';
-    modal.style.zIndex = '99999';
-    modal.style.display = 'flex';
-    modal.style.alignItems = 'center';
-    modal.style.justifyContent = 'center';
-
-    const bigPhoto = document.createElement('img');
-    bigPhoto.src = images[currentIndex];
-    bigPhoto.style.maxWidth = '95%';
-    bigPhoto.style.maxHeight = '90%';
-    bigPhoto.style.objectFit = 'contain';
-
-    modal.appendChild(bigPhoto);
-    modal.onclick = () => modal.remove();
-    document.body.appendChild(modal);
-  };
+  openProductDetails({
+    title: product.title || '',
+    description: product.description || '',
+    category: product.category || '',
+    price: product.price || '',
+    location: product.location || '',
+    seller: product.seller_name || '',
+    phone: product.phone || '',
+    image: images[currentIndex] || ''
+  });
+};
 
 } else {
   image.textContent = '🛍️';
