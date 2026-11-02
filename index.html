@@ -129,7 +129,36 @@
   </div>
 </section>
   </main>
+  <!-- PRODUCT DETAILS MODAL -->
+<div id="productModal" class="product-modal"
+     onclick="closeProductDetails(event)">
 
+  <div class="product-details"
+       onclick="event.stopPropagation()">
+
+    <button class="close-product"
+            onclick="closeProductDetails()">✕</button>
+
+    <div class="product-details-image">
+      <img id="detailImage" src="" alt="Product">
+    </div>
+
+    <div class="product-details-info">
+      <h2 id="detailTitle"></h2>
+      <p id="detailPrice" class="price"></p>
+      <p id="detailCategory"></p>
+      <p id="detailDescription"></p>
+      <p id="detailLocation"></p>
+      <p id="detailSeller"></p>
+      <p id="detailPhone"></p>
+
+      <button id="detailContact" class="header-btn">
+        Contact Seller
+      </button>
+    </div>
+
+  </div>
+</div>
   <footer class="footer">
     <h2>Gebeta 🇪🇹</h2>
     <p>Ethiopia's Digital Marketplace</p>
