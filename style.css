@@ -9,6 +9,31 @@
     nav{display:flex;gap:23px;font-size:13px;font-weight:600}
     nav a:hover{color:#d99b29}
     .header-btn{background:#155b3b;color:white;border:0;padding:12px 20px;border-radius:7px;font-weight:700}
+.auth-buttons{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.login-btn,
+.signup-btn{
+  padding:11px 16px;
+  border-radius:7px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.login-btn{
+  background:white;
+  color:#155b3b;
+  border:1px solid #155b3b;
+}
+
+.signup-btn{
+  background:#e5a42d;
+  color:#202b25;
+  border:0;
+}
     .hero{background:linear-gradient(120deg,#103e2c,#176344);color:white;padding:75px 7%;display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:35px}
     .hero h1{font-size:clamp(34px,5vw,55px);line-height:1.15;margin-bottom:20px}
     .hero p{color:#dcece3;line-height:1.8;max-width:510px;margin-bottom:27px}
