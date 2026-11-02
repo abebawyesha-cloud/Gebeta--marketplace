@@ -461,29 +461,35 @@ function filterCategory(category){
 
   document.getElementById('searchInput').value = '';
 }    
-function searchProducts(){
+    function searchProducts(){
   const query = document.getElementById('searchInput').value
     .toLowerCase().trim();
+
   const products = document.querySelectorAll('#productGrid .product');
-  console.log('Products found:', products.length);
   let found = 0;
 
   products.forEach(product => {
-    const text = (
-  product.textContent + ' ' +
-  product.dataset.title + ' ' +
-  product.dataset.description + ' ' +
-  product.dataset.category
-).toLowerCase();
+    const title = product.dataset.title ||
+      product.querySelector('h3')?.textContent || '';
+
+    const description = product.dataset.description ||
+      product.querySelector('p')?.textContent || '';
+
+    const category = product.dataset.category ||
+      product.querySelector('small')?.textContent || '';
+
+    const text = (title + ' ' + description + ' ' + category)
+      .toLowerCase();
+
     const matches = text.includes(query);
 
-    product.style.display = matches ? '' : 'none';
+    product.style.display = matches ? 'block' : 'none';
 
     if (matches) found++;
   });
 
-  const noResults = document.getElementById('noResults');
-  noResults.style.display = found === 0 ? 'block' : 'none';
+  document.getElementById('noResults').style.display =
+    found === 0 ? 'block' : 'none';
 }
 
 document.getElementById('searchInput').addEventListener('input', searchProducts);
