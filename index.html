@@ -576,6 +576,22 @@ async function signupUser() {
 function updateAuthUI(session) {
   const container = document.querySelector('.auth-buttons');
   if (!container) return;
+    const productForm = document.getElementById('productForm');
+
+  let loginNotice = document.getElementById('sellLoginNotice');
+
+  if (!loginNotice) {
+    loginNotice = document.createElement('div');
+    loginNotice.id = 'sellLoginNotice';
+    loginNotice.innerHTML =
+      '<p>Please login to publish products.</p>' +
+      '<button type="button" class="header-btn" onclick="openLogin()">Login to Sell</button>';
+
+    productForm.parentNode.insertBefore(loginNotice, productForm);
+  }
+
+  productForm.style.display = session ? '' : 'none';
+  loginNotice.style.display = session ? 'none' : 'block';
 
   container.innerHTML = '';
 
