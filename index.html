@@ -573,7 +573,52 @@ async function signupUser() {
     ? 'Account created successfully!'
     : 'Account created. Please check your email to confirm.';
 }
+function updateAuthUI(session) {
+  const container = document.querySelector('.auth-buttons');
+  if (!container) return;
 
+  container.innerHTML = '';
+
+  if (session) {
+    const welcome = document.createElement('span');
+    welcome.textContent =
+      'Welcome, ' + (session.user.user_metadata?.full_name ||
+      session.user.email);
+
+    const logout = document.createElement('button');
+    logout.textContent = 'Logout';
+    logout.className = 'login-btn';
+
+    logout.onclick = async function () {
+      const { error } = await supabaseClient.auth.signOut();
+      if (error) {
+        alert(error.message);
+      }
+    };
+
+    container.append(welcome, logout);
+  } else {
+    const login = document.createElement('button');
+    login.textContent = 'Login';
+    login.className = 'login-btn';
+    login.onclick = openLogin;
+
+    const signup = document.createElement('button');
+    signup.textContent = 'Sign Up';
+    signup.className = 'signup-btn';
+    signup.onclick = openSignup;
+
+    container.append(login, signup);
+  }
+}
+
+supabaseClient.auth.onAuthStateChange((event, session) => {
+  updateAuthUI(session);
+});
+
+supabaseClient.auth.getSession().then(({ data }) => {
+  updateAuthUI(data.session);
+});
 async function loginUser() {
   const email = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value;
