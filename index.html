@@ -809,7 +809,9 @@ function updateAuthUI(session) {
   const sellerOrdersSection = document.getElementById('sellerOrders');
 sellerOrdersSection.style.display = session ? 'block' : 'none';
 if (session) loadSellerOrders();
-
+const buyerOrdersSection = document.getElementById('buyerOrders');
+buyerOrdersSection.style.display = session ? 'block' : 'none';
+if (session) loadBuyerOrders();
   container.innerHTML = '';
 
   if (session) {
