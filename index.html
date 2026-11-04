@@ -243,17 +243,26 @@ const supabaseClient = window.supabase.createClient(
     imageUrls.push(data.publicUrl);
   }
 
-  const product = {
-    title: document.getElementById('productTitle').value.trim(),
-    description: document.getElementById('productDescription').value.trim(),
-    category: document.getElementById('productCategory').value,
-    price: Number(document.getElementById('productPrice').value),
-    seller_name: document.getElementById('sellerName').value.trim(),
-    location: document.getElementById('sellerLocation').value.trim(),
-    phone: document.getElementById('sellerPhone').value.trim(),
-    image_url: imageUrls[0],
-    image_urls: imageUrls
-  };
+const { data: userData, error: userError } =
+  await supabaseClient.auth.getUser();
+
+if (userError || !userData.user) {
+  message.textContent = 'Please login first.';
+  return;
+}
+
+const product = {
+  title: document.getElementById('productTitle').value.trim(),
+  description: document.getElementById('productDescription').value.trim(),
+  category: document.getElementById('productCategory').value,
+  price: Number(document.getElementById('productPrice').value),
+  seller_name: document.getElementById('sellerName').value.trim(),
+  location: document.getElementById('sellerLocation').value.trim(),
+  phone: document.getElementById('sellerPhone').value.trim(),
+  image_url: imageUrls[0],
+  image_urls: imageUrls,
+  seller_id: userData.user.id
+};
 
   const { error } = await supabaseClient
     .from('products')
