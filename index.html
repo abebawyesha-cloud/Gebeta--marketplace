@@ -468,6 +468,52 @@ document.getElementById('productGrid').addEventListener('click', function(event)
 loadProducts();
     
     let selectedOrderProduct = null;
+    async function loadSellerOrders() {
+  const list = document.getElementById('sellerOrdersList');
+
+  const { data: userData, error: userError } =
+    await supabaseClient.auth.getUser();
+
+  if (userError || !userData.user) {
+    list.textContent = 'Please login to view your orders.';
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from('orders')
+    .select('*')
+    .eq('seller_id', userData.user.id)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    list.textContent = 'Could not load orders: ' + error.message;
+    return;
+  }
+
+  list.innerHTML = '';
+
+  if (!data || data.length === 0) {
+    list.textContent = 'No customer orders yet.';
+    return;
+  }
+
+  data.forEach(order => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+
+    card.innerHTML = `
+      <h3>${order.product_title}</h3>
+      <p>Buyer: ${order.buyer_name}</p>
+      <p>Phone: ${order.buyer_phone}</p>
+      <p>Quantity: ${order.quantity}</p>
+      <p>Total: ETB ${Number(order.total_price).toLocaleString()}</p>
+      <p>Delivery: ${order.delivery_location}</p>
+      <p>Status: ${order.status}</p>
+    `;
+
+    list.appendChild(card);
+  });
+}
 
 function openOrderModal(product) {
   selectedOrderProduct = product;
