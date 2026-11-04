@@ -393,11 +393,15 @@ photo.onclick = function(event) {
 
     const location = document.createElement('p');
     location.textContent = product.location;
+const button = document.createElement('button');
+button.textContent = 'Contact Seller';
+button.onclick = () => contactSeller(product.phone, product.title);
 
-    const button = document.createElement('button');
-    button.textContent = 'Contact Seller';
-  button.onclick = () => contactSeller(product.phone, product.title);
+const orderButton = document.createElement('button');
+orderButton.textContent = 'Order Now';
+orderButton.onclick = () => openOrderModal(product);
 
+info.append(category, title, description, price, location, button, orderButton);
     info.append(category, title, description, price, location, button);
     card.append(image, info);
     productGrid.prepend(card);
