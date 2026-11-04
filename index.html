@@ -525,7 +525,53 @@ loadProducts();
     list.appendChild(card);
   });
 }
+async function loadBuyerOrders() {
+  const list = document.getElementById('buyerOrdersList');
 
+  const { data: userData, error: userError } =
+    await supabaseClient.auth.getUser();
+
+  if (userError || !userData.user) {
+    list.textContent = 'Please login to view your orders.';
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from('orders')
+    .select('*')
+    .eq('buyer_id', userData.user.id)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    list.textContent = 'Could not load orders: ' + error.message;
+    return;
+  }
+
+  list.innerHTML = '';
+
+  if (!data || data.length === 0) {
+    list.textContent = 'You have no orders yet.';
+    return;
+  }
+
+  data.forEach(order => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+
+    const details = document.createElement('p');
+    details.textContent =
+      'Order ID: ' + order.id +
+      ' | Quantity: ' + order.quantity +
+      ' | Total: ETB ' + Number(order.total_price).toLocaleString() +
+      ' | Status: ' + order.status;
+
+    const title = document.createElement('h3');
+    title.textContent = order.product_title;
+
+    card.append(title, details);
+    list.appendChild(card);
+  });
+}
 function openOrderModal(product) {
   selectedOrderProduct = product;
 
