@@ -456,6 +456,63 @@ document.getElementById('productGrid').addEventListener('click', function(event)
 });
 loadProducts();
     
+    let selectedOrderProduct = null;
+
+function openOrderModal(product) {
+  selectedOrderProduct = product;
+
+  document.getElementById('orderProductTitle').textContent =
+    product.title || '';
+
+  document.getElementById('orderProductPrice').textContent =
+    'Price: ETB ' + Number(product.price).toLocaleString();
+
+  document.getElementById('orderQuantity').value = 1;
+  document.getElementById('orderMessage').textContent = '';
+
+  document.getElementById('orderModal').style.display = 'flex';
+}
+
+function closeOrderModal() {
+  document.getElementById('orderModal').style.display = 'none';
+}
+
+async function placeOrder() {
+  const message = document.getElementById('orderMessage');
+
+  const quantity = Number(document.getElementById('orderQuantity').value);
+  const buyerName = document.getElementById('buyerName').value.trim();
+  const buyerPhone = document.getElementById('buyerPhone').value.trim();
+  const deliveryLocation =
+    document.getElementById('deliveryLocation').value.trim();
+
+  if (!selectedOrderProduct || !selectedOrderProduct.id) {
+    message.textContent = 'Please select a product.';
+    return;
+  }
+
+  if (!quantity || quantity < 1 || !buyerName || !buyerPhone || !deliveryLocation) {
+    message.textContent = 'Please fill in all fields correctly.';
+    return;
+  }
+
+  message.textContent = 'Submitting order...';
+
+  const { data, error } = await supabaseClient.rpc('create_order', {
+    p_product_id: selectedOrderProduct.id,
+    p_quantity: quantity,
+    p_buyer_name: buyerName,
+    p_buyer_phone: buyerPhone,
+    p_delivery_location: deliveryLocation
+  });
+
+  if (error) {
+    message.textContent = 'Order failed: ' + error.message;
+    return;
+  }
+
+  message.textContent = 'Order placed successfully! Order ID: ' + data;
+}
     function openProductDetails(product) {
   document.getElementById('detailTitle').textContent =
     product.title || '';
