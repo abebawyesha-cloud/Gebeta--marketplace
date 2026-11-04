@@ -749,6 +749,9 @@ function updateAuthUI(session) {
 
   productForm.style.display = session ? '' : 'none';
   loginNotice.style.display = session ? 'none' : 'block';
+  const sellerOrdersSection = document.getElementById('sellerOrders');
+sellerOrdersSection.style.display = session ? 'block' : 'none';
+if (session) loadSellerOrders();
 
   container.innerHTML = '';
 
