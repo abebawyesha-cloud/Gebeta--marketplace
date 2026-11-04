@@ -161,6 +161,36 @@
     </div>
   </div>
 </div>
+  <!-- ORDER MODAL -->
+<div id="orderModal" class="product-modal" style="display:none;">
+  <div class="product-details">
+    <button class="close-product" onclick="closeOrderModal()">✕</button>
+
+    <div class="product-details-info">
+      <h2>Place Your Order</h2>
+      <p id="orderProductTitle"></p>
+      <p id="orderProductPrice"></p>
+
+      <input type="number" id="orderQuantity"
+        value="1" min="1" placeholder="Quantity">
+
+      <input type="text" id="buyerName"
+        placeholder="Your Full Name" required>
+
+      <input type="tel" id="buyerPhone"
+        placeholder="Your Phone Number" required>
+
+      <input type="text" id="deliveryLocation"
+        placeholder="Delivery Location" required>
+
+      <button class="header-btn" onclick="placeOrder()">
+        Place Order
+      </button>
+
+      <p id="orderMessage"></p>
+    </div>
+  </div>
+</div>
   <!-- PRODUCT DETAILS MODAL -->
 <div id="productModal" class="product-modal"
      style="display:none;"
