@@ -512,18 +512,73 @@ loadProducts();
     const card = document.createElement('div');
     card.className = 'product-card';
 
-    card.innerHTML = `
-      <h3>${order.product_title}</h3>
-      <p>Buyer: ${order.buyer_name}</p>
-      <p>Phone: ${order.buyer_phone}</p>
-      <p>Quantity: ${order.quantity}</p>
-      <p>Total: ETB ${Number(order.total_price).toLocaleString()}</p>
-      <p>Delivery: ${order.delivery_location}</p>
-      <p>Status: ${order.status}</p>
-    `;
+    const title = document.createElement('h3');
+    title.textContent = order.product_title;
+
+    const buyer = document.createElement('p');
+    buyer.textContent = 'Buyer: ' + order.buyer_name;
+
+    const phone = document.createElement('p');
+    phone.textContent = 'Phone: ' + order.buyer_phone;
+
+    const quantity = document.createElement('p');
+    quantity.textContent = 'Quantity: ' + order.quantity;
+
+    const total = document.createElement('p');
+    total.textContent = 'Total: ETB ' +
+      Number(order.total_price).toLocaleString();
+
+    const delivery = document.createElement('p');
+    delivery.textContent = 'Delivery: ' + order.delivery_location;
+
+    const status = document.createElement('p');
+    status.textContent = 'Status: ' + order.status;
+
+    card.append(title, buyer, phone, quantity, total, delivery, status);
+
+    if (order.status === 'pending') {
+      const confirm = document.createElement('button');
+      confirm.textContent = 'Confirm Order';
+      confirm.onclick = () =>
+        updateOrderStatus(order.id, 'confirmed');
+
+      const cancel = document.createElement('button');
+      cancel.textContent = 'Cancel Order';
+      cancel.onclick = () =>
+        updateOrderStatus(order.id, 'cancelled');
+
+      card.append(confirm, cancel);
+
+    } else if (order.status === 'confirmed') {
+      const delivered = document.createElement('button');
+      delivered.textContent = 'Mark as Delivered';
+      delivered.onclick = () =>
+        updateOrderStatus(order.id, 'delivered');
+
+      const cancel = document.createElement('button');
+      cancel.textContent = 'Cancel Order';
+      cancel.onclick = () =>
+        updateOrderStatus(order.id, 'cancelled');
+
+      card.append(delivered, cancel);
+    }
 
     list.appendChild(card);
   });
+}
+
+async function updateOrderStatus(orderId, newStatus) {
+  const { error } = await supabaseClient.rpc('update_order_status', {
+    p_order_id: orderId,
+    p_new_status: newStatus
+  });
+
+  if (error) {
+    alert('Could not update order: ' + error.message);
+    return;
+  }
+
+  await loadSellerOrders();
 }
 async function loadBuyerOrders() {
   const list = document.getElementById('buyerOrdersList');
