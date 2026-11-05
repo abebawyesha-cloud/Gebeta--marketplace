@@ -311,7 +311,34 @@ if (userError || !userData.user) {
   message.textContent = 'Please login first.';
   return;
 }
+      let digitalFilePath = null;
 
+const category = document.getElementById('productCategory').value;
+
+if (category === 'Digital') {
+  const digitalFile = document.getElementById('digitalFile').files[0];
+
+  if (!digitalFile) {
+    message.textContent = 'Please upload your digital product file.';
+    return;
+  }
+
+  const fileName =
+    userData.user.id + '/' + Date.now() + '-' +
+    digitalFile.name.replace(/\s+/g, '-');
+
+  const { error: digitalUploadError } = await supabaseClient
+    .storage
+    .from('digital-products')
+    .upload(fileName, digitalFile);
+
+  if (digitalUploadError) {
+    message.textContent = 'Digital file upload error: ' + digitalUploadError.message;
+    return;
+  }
+
+  digitalFilePath = fileName;
+}
 const product = {
   title: document.getElementById('productTitle').value.trim(),
   description: document.getElementById('productDescription').value.trim(),
