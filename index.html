@@ -740,21 +740,30 @@ function filterCategory(category){
   let found = 0;
 
   products.forEach(product => {
-    const productCategory = product.querySelector('small')?.textContent.trim().toLowerCase() || '';
+    const productCategory = (
+      product.dataset.category ||
+      product.querySelector('small')?.textContent ||
+      ''
+    ).trim().toLowerCase();
 
-    const matches = category === 'All' ||
-      productCategory === category.toLowerCase();
+    const selected = category.trim().toLowerCase();
+
+    const matches = selected === 'all' ||
+      (selected === 'digital'
+        ? productCategory === 'digital' ||
+          productCategory === 'digital products'
+        : productCategory === selected);
 
     product.style.display = matches ? '' : 'none';
 
-    if(matches) found++;
+    if (matches) found++;
   });
 
   document.getElementById('noResults').style.display =
     found === 0 ? 'block' : 'none';
 
   document.getElementById('searchInput').value = '';
-}    
+}
     function searchProducts(){
   const query = document.getElementById('searchInput').value
     .toLowerCase().trim();
