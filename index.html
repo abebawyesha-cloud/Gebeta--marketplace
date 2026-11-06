@@ -747,14 +747,39 @@ async function placeOrder() {
 
   document.getElementById('detailImage').src =
     product.image || '';
+document.getElementById('detailContact').onclick = function() {
+  contactSeller(product.phone, product.title);
+};
 
-  document.getElementById('detailContact').onclick = function() {
-    contactSeller(product.phone, product.title);
+// DIGITAL PRODUCT DOWNLOAD
+const downloadBox = document.getElementById('digitalDownloadBox');
+const downloadButton = document.getElementById('digitalDownloadButton');
+
+downloadBox.style.display = 'none';
+downloadButton.onclick = null;
+
+if (
+  product.category &&
+  product.category.toLowerCase().includes('digital') &&
+  product.digital_file_path
+) {
+  downloadBox.style.display = 'block';
+
+  downloadButton.onclick = async function() {
+    const { data, error } = await supabaseClient.storage
+      .from('digital-products')
+      .createSignedUrl(product.digital_file_path, 60);
+
+    if (error) {
+      alert('Download error: ' + error.message);
+      return;
+    }
+
+    window.open(data.signedUrl, '_blank');
   };
-
-  document.getElementById('productModal').style.display = 'flex';
 }
 
+document.getElementById('productModal').style.display = 'flex';
 function closeProductDetails(event) {
   if (!event || event.target.id === 'productModal') {
     document.getElementById('productModal').style.display = 'none';
