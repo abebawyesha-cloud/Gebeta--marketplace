@@ -499,7 +499,20 @@ orderButton.onclick = () => openOrderModal(product);
 
 info.append(category, title, description, price, location, button, orderButton);
     card.append(image, info);
-    productGrid.prepend(card);
+  const categoryName = (product.category || '').toLowerCase();
+
+if (
+  categoryName.includes('digital') ||
+  categoryName.includes('ዲጂታል')
+) {
+  const digitalGrid = document.getElementById('digitalProductGrid');
+
+  if (digitalGrid) {
+    digitalGrid.prepend(card);
+  }
+} else {
+  productGrid.prepend(card);
+}
   });
 }
 document.getElementById('productGrid').addEventListener('click', function(event) {
