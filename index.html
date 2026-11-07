@@ -399,7 +399,7 @@ card.dataset.price = product.price || '';
 card.dataset.location = product.location || '';
 card.dataset.seller = product.seller_name || '';
 card.dataset.phone = product.phone || '';
-
+    card.dataset.digitalFilePath = product.digital_file_path || '';
     const image = document.createElement('div');
     image.className = 'product-img';
     const images = product.image_urls && product.image_urls.length > 0
