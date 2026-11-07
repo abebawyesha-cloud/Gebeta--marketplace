@@ -533,7 +533,8 @@ document.getElementById('productGrid').addEventListener('click', function(event)
     digital_file_path: card.dataset.digitalFilePath || '',
     image: card.dataset.image || card.querySelector('img')?.src || ''
   });
-  document.getElementById('digitalProductGrid')?.addEventListener('click', function(event) {
+  // NORMAL PRODUCT GRID
+document.getElementById('productGrid')?.addEventListener('click', function(event) {
   if (event.target.closest('button')) return;
 
   const card = event.target.closest('.product');
@@ -543,13 +544,16 @@ document.getElementById('productGrid').addEventListener('click', function(event)
     title: card.dataset.title || card.querySelector('h3')?.textContent || '',
     description: card.dataset.description || '',
     category: card.dataset.category || card.querySelector('small')?.textContent || '',
-    price: card.dataset.price || '',
+    price: card.dataset.price || card.querySelector('.price')?.textContent || '',
     location: card.dataset.location || '',
     seller: card.dataset.seller || '',
     phone: card.dataset.phone || '',
     digital_file_path: card.dataset.digitalFilePath || '',
     image: card.dataset.image || card.querySelector('img')?.src || ''
   });
+});
+
+// DIGITAL PRODUCT GRID
 document.getElementById('digitalProductGrid')?.addEventListener('click', function(event) {
   if (event.target.closest('button')) return;
 
@@ -560,7 +564,7 @@ document.getElementById('digitalProductGrid')?.addEventListener('click', functio
     title: card.dataset.title || card.querySelector('h3')?.textContent || '',
     description: card.dataset.description || '',
     category: card.dataset.category || card.querySelector('small')?.textContent || '',
-    price: card.dataset.price || '',
+    price: card.dataset.price || card.querySelector('.price')?.textContent || '',
     location: card.dataset.location || '',
     seller: card.dataset.seller || '',
     phone: card.dataset.phone || '',
@@ -568,6 +572,7 @@ document.getElementById('digitalProductGrid')?.addEventListener('click', functio
     image: card.dataset.image || card.querySelector('img')?.src || ''
   });
 });
+
 loadProducts();
     
     let selectedOrderProduct = null;
