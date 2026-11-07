@@ -550,7 +550,7 @@ document.getElementById('productGrid').addEventListener('click', function(event)
     digital_file_path: card.dataset.digitalFilePath || '',
     image: card.dataset.image || card.querySelector('img')?.src || ''
   });
-  document.getElementById('digitalProductGrid')?.addEventListener('click', function(event) {
+document.getElementById('digitalProductGrid')?.addEventListener('click', function(event) {
   if (event.target.closest('button')) return;
 
   const card = event.target.closest('.product');
