@@ -281,11 +281,10 @@ const supabaseClient = window.supabase.createClient(
   message.textContent = 'Publishing...';
 const category = document.getElementById('productCategory').value;
 const files = document.getElementById('productImages').files;
-  if (!files.length) {
-    message.textContent = 'Please select at least one photo.';
-    return;
-  }
-
+  if (category !== 'Digital' && !files.length) {
+  message.textContent = 'Please select at least one photo.';
+  return;
+}
   const imageUrls = [];
 
   for (const file of files) {
