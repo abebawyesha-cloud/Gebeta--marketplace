@@ -279,9 +279,8 @@ const supabaseClient = window.supabase.createClient(
 
   const message = document.getElementById('formMessage');
   message.textContent = 'Publishing...';
-
-  const files = document.getElementById('productImages').files;
-
+const category = document.getElementById('productCategory').value;
+const files = document.getElementById('productImages').files;
   if (!files.length) {
     message.textContent = 'Please select at least one photo.';
     return;
