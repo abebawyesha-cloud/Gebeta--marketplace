@@ -285,8 +285,9 @@ const files = document.getElementById('productImages').files;
   message.textContent = 'Please select at least one photo.';
   return;
 }
-  const imageUrls = [];
+const imageUrls = [];
 
+if (category !== 'Digital') {
   for (const file of files) {
     const fileName = Date.now() + '-' + file.name.replace(/\s+/g, '-');
 
@@ -307,7 +308,7 @@ const files = document.getElementById('productImages').files;
 
     imageUrls.push(data.publicUrl);
   }
-
+}
 const { data: userData, error: userError } =
   await supabaseClient.auth.getUser();
 
