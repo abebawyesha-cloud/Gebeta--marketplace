@@ -536,7 +536,9 @@ button.onclick = () => contactSeller(product.phone, product.title);
 const orderButton = document.createElement('button');
 orderButton.textContent = 'Order Now';
 orderButton.onclick = () => openOrderModal(product);
-
+const addCartButton = document.createElement('button');
+addCartButton.textContent = 'Add to Cart';
+addCartButton.onclick = () => addToCart(product);
 info.append(category, title, description, price, location, button, orderButton);
     card.append(image, info);
   const categoryName = (product.category || '').toLowerCase();
