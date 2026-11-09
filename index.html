@@ -863,37 +863,19 @@ function closeProductDetails(event) {
     '_blank'
   );
 }
-function filterCategory(category){
-  const products = document.querySelectorAll('#productGrid .product');
-  let found = 0;
+let selectedCategory = 'all';
 
-  products.forEach(product => {
-    const productCategory = (
-      product.dataset.category ||
-      product.querySelector('small')?.textContent ||
-      ''
-    ).trim().toLowerCase();
-
-    const selected = category.trim().toLowerCase();
-
-    const matches = selected === 'all' ||
-      (selected === 'digital'
-        ? productCategory === 'digital' ||
-          productCategory === 'digital products'
-        : productCategory === selected);
-
-    product.style.display = matches ? '' : 'none';
-
-    if (matches) found++;
-  });
-
-  document.getElementById('noResults').style.display =
-    found === 0 ? 'block' : 'none';
-
-  document.getElementById('searchInput').value = '';
-}
-    function searchProducts(){
+function applyProductFilters() {
   const query = document.getElementById('searchInput').value
+    .toLowerCase().trim();
+
+  const minValue = document.getElementById('minPrice').value;
+  const maxValue = document.getElementById('maxPrice').value;
+
+  const minPrice = minValue === '' ? 0 : Number(minValue);
+  const maxPrice = maxValue === '' ? Infinity : Number(maxValue);
+
+  const location = document.getElementById('locationFilter').value
     .toLowerCase().trim();
 
   const products = document.querySelectorAll('#productGrid .product');
@@ -909,16 +891,40 @@ function filterCategory(category){
     const category = product.dataset.category ||
       product.querySelector('small')?.textContent || '';
 
+    const priceText = product.dataset.price ||
+      product.querySelector('.price')?.textContent || '';
+
+    const price = Number(String(priceText).replace(/[^\d.]/g, '')) || 0;
+
+    const productLocation = (
+      product.dataset.location ||
+      product.textContent
+    ).toLowerCase();
+
     const text = (title + ' ' + description + ' ' + category)
       .toLowerCase();
 
-    const matches = text.includes(query);
+    const matchesSearch = text.includes(query);
 
-if (matches) {
-  product.style.removeProperty('display');
-} else {
-  product.style.setProperty('display', 'none', 'important');
-}
+    const productCategory = category.trim().toLowerCase();
+    const selected = selectedCategory.toLowerCase();
+
+    const matchesCategory = selected === 'all' ||
+      (selected === 'digital'
+        ? productCategory === 'digital' ||
+          productCategory === 'digital products'
+        : productCategory === selected);
+
+    const matchesPrice = price >= minPrice && price <= maxPrice;
+    const matchesLocation = !location ||
+      productLocation.includes(location);
+
+    const matches = matchesSearch &&
+      matchesCategory &&
+      matchesPrice &&
+      matchesLocation;
+
+    product.style.display = matches ? '' : 'none';
 
     if (matches) found++;
   });
@@ -927,10 +933,32 @@ if (matches) {
     found === 0 ? 'block' : 'none';
 }
 
-document.getElementById('searchInput').addEventListener('input', searchProducts);
+function filterCategory(category) {
+  selectedCategory = category.toLowerCase();
+  document.getElementById('searchInput').value = '';
+  applyProductFilters();
+}
 
-document.getElementById('searchInput').addEventListener('keydown', function(event){
-  if(event.key === 'Enter'){
+function searchProducts() {
+  applyProductFilters();
+}
+
+function clearProductFilters() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('minPrice').value = '';
+  document.getElementById('maxPrice').value = '';
+  document.getElementById('locationFilter').value = '';
+
+  selectedCategory = 'all';
+  applyProductFilters();
+}
+
+['searchInput', 'minPrice', 'maxPrice', 'locationFilter'].forEach(id => {
+  document.getElementById(id).addEventListener('input', applyProductFilters);
+});
+
+document.getElementById('searchInput').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
     searchProducts();
   }
 });
