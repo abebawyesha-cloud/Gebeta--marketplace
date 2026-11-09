@@ -539,7 +539,7 @@ orderButton.onclick = () => openOrderModal(product);
 const addCartButton = document.createElement('button');
 addCartButton.textContent = 'Add to Cart';
 addCartButton.onclick = () => addToCart(product);
-info.append(category, title, description, price, location, button, orderButton);
+info.append(category, title, description, price, location, button, orderButton, addCartButton);
     card.append(image, info);
   const categoryName = (product.category || '').toLowerCase();
 
