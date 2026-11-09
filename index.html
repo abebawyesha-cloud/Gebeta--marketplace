@@ -74,6 +74,34 @@
 
     <section class="section" id="shop">
       <div class="section-head"><div><h2>Featured Products</h2><p class="muted">Discover products from local sellers</p></div><a href="#shop">View all →</a></div>
+      <div class="product-filters" style="display:flex;flex-wrap:wrap;gap:10px;margin:20px 0;">
+  <input
+    type="number"
+    id="minPrice"
+    placeholder="Minimum Price (ETB)"
+    min="0"
+    style="padding:12px;max-width:180px;"
+  >
+
+  <input
+    type="number"
+    id="maxPrice"
+    placeholder="Maximum Price (ETB)"
+    min="0"
+    style="padding:12px;max-width:180px;"
+  >
+
+  <input
+    type="text"
+    id="locationFilter"
+    placeholder="Search by City / Area"
+    style="padding:12px;max-width:200px;"
+  >
+
+  <button type="button" onclick="clearProductFilters()">
+    Clear Filters
+  </button>
+</div>
       <div class="product-grid" id="productGrid">
         <article class="product"><div class="product-img">👟</div><div class="product-info"><small>Shoes</small><h3>Sports Shoes</h3><div class="price">ETB 2,500</div><button onclick="contactSeller('Sports Shoes')">Contact Seller</button></div></article>
         <article class="product"><div class="product-img">👜</div><div class="product-info"><small>Fashion</small><h3>Fashion Bag</h3><div class="price">ETB 1,800</div><button onclick="contactSeller('Fashion Bag')">Contact Seller</button></div></article>
