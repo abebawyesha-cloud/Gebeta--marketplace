@@ -600,6 +600,29 @@ document.getElementById('digitalProductGrid')?.addEventListener('click', functio
 loadProducts(); 
     // SHOPPING CART
 let cart = [];
+    function addToCart(product) {
+  if (!product || !product.id) {
+    alert('Product information is missing.');
+    return;
+  }
+
+  const existingItem = cart.find(item => item.id === product.id);
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      id: product.id,
+      title: product.title,
+      price: Number(product.price),
+      image: product.image_urls?.[0] || product.image_url || '',
+      quantity: 1
+    });
+  }
+
+  renderCart();
+  alert(product.title + ' added to cart!');
+}
     let selectedOrderProduct = null;
     async function loadSellerOrders() {
   const list = document.getElementById('sellerOrdersList');
