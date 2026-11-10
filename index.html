@@ -1068,11 +1068,16 @@ function updateAuthUI(session) {
   productForm.style.display = session ? '' : 'none';
   loginNotice.style.display = session ? 'none' : 'block';
   const sellerOrdersSection = document.getElementById('sellerOrders');
-sellerOrdersSection.style.display = session ? 'block' : 'none';
-if (session) loadSellerOrders();
+if (sellerOrdersSection) {
+  sellerOrdersSection.style.display = session ? 'block' : 'none';
+  if (session) loadSellerOrders();
+}
+
 const buyerOrdersSection = document.getElementById('buyerOrders');
-buyerOrdersSection.style.display = session ? 'block' : 'none';
-if (session) loadBuyerOrders();
+if (buyerOrdersSection) {
+  buyerOrdersSection.style.display = session ? 'block' : 'none';
+  if (session) loadBuyerOrders();
+}
   container.innerHTML = '';
 
   if (session) {
