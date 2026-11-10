@@ -354,11 +354,12 @@ const product = {
 
   await loadProducts();
 });
-    async function checkAdminAccess() {
-  const { data: { user } } = await supabaseClient.auth.getUser();
-
-  if (!user) return;
-
+  
+async function checkAdminAccess(userId) {
+  if (!userId) {
+    document.getElementById('adminDashboard').style.display = 'none';
+    return;
+  }
   const { data, error } = await supabaseClient
     .from('admin_users')
     .select('user_id')
