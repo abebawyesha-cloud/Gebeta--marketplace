@@ -544,13 +544,17 @@ const button = document.createElement('button');
 button.textContent = 'Contact Seller';
 button.onclick = () => contactSeller(product.phone, product.title);
 
-const orderButton = document.createElement('button');
-orderButton.textContent = 'Order Now';
-orderButton.onclick = () => openOrderModal(product);
-const addCartButton = document.createElement('button');
-addCartButton.textContent = 'Add to Cart';
-addCartButton.onclick = () => addToCart(product);
-info.append(category, title, description, price, location, button, orderButton, addCartButton);
+const callButton = document.createElement('button');
+callButton.textContent = 'Call Seller';
+callButton.onclick = () => {
+  if (!product.phone) {
+    alert('Seller phone number is not available.');
+    return;
+  }
+  window.location.href = 'tel:' + product.phone;
+};
+
+info.append(category, title, description, price, location, button, callButton);
     card.append(image, info);
   const categoryName = (product.category || '').toLowerCase();
 
