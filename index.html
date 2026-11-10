@@ -354,6 +354,58 @@ const product = {
 
   await loadProducts();
 });
+    async function checkAdminAccess() {
+  const { data: { user } } = await supabaseClient.auth.getUser();
+
+  if (!user) return;
+
+  const { data, error } = await supabaseClient
+    .from('admin_users')
+    .select('user_id')
+    .eq('user_id', user.id)
+    .maybeSingle();
+
+  if (error) {
+    console.error('Admin check failed:', error.message);
+    return;
+  }
+
+  if (data) {
+    const dashboard = document.getElementById('adminDashboard');
+    dashboard.style.display = 'block';
+    loadAdminProducts();
+  }
+}
+
+async function loadAdminProducts() {
+  const list = document.getElementById('adminProductsList');
+
+  const { data, error } = await supabaseClient
+    .from('products')
+    .select('*')
+    .order('id', { ascending: false });
+
+  if (error) {
+    list.textContent = 'Could not load products: ' + error.message;
+    return;
+  }
+
+  list.innerHTML = '';
+
+  if (!data || data.length === 0) {
+    list.textContent = 'No products found.';
+    return;
+  }
+
+  data.forEach(product => {
+    const item = document.createElement('div');
+    item.style.padding = '12px';
+    item.style.borderBottom = '1px solid #ddd';
+    item.textContent =
+      product.title + ' — ' + product.price + ' Birr — ' + product.location;
+    list.appendChild(item);
+  });
+}
   async function loadProducts() {
   const { data, error } = await supabaseClient
     .from('products')
