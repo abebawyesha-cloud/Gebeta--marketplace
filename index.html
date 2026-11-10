@@ -1111,8 +1111,9 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
   updateAuthUI(session);
   checkAdminAccess(session?.user?.id);
 });
-supabaseClient.auth.getSession().then(({ data }) => {
+    supabaseClient.auth.getSession().then(({ data }) => {
   updateAuthUI(data.session);
+  checkAdminAccess(data.session?.user?.id);
 });
 async function loginUser() {
   const email = document.getElementById('loginEmail').value.trim();
