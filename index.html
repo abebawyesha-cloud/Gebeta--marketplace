@@ -215,69 +215,6 @@
     <button class="header-btn" onclick="checkoutCart()">Checkout / Order</button>
   </div>
 </div> 
-  <!-- ORDER MODAL -->
-<div id="orderModal" class="product-modal" style="display:none;">
-  <div class="product-details">
-    <button class="close-product" onclick="closeOrderModal()">✕</button>
-
-    <div class="product-details-info">
-      <h2>Place Your Order</h2>
-      <p id="orderProductTitle"></p>
-      <p id="orderProductPrice"></p>
-
-      <input type="number" id="orderQuantity"
-        value="1" min="1" placeholder="Quantity">
-
-      <input type="text" id="buyerName"
-        placeholder="Your Full Name" required>
-
-      <input type="tel" id="buyerPhone"
-        placeholder="Your Phone Number" required>
-
-      <input type="text" id="deliveryLocation"
-        placeholder="Delivery Location" required>
-<label for="paymentMethod">Choose Payment Method:</label>
-
-<select id="paymentMethod" required>
-  <option value="">Select payment method</option>
-  <option value="telebirr">Telebirr (Test)</option>
-  <option value="bank">Bank Transfer (Test)</option>
-  <option value="cash">Cash on Delivery</option>
-</select>
-
-<p style="color:#b45309; font-size:13px;">
-  Test mode: No money will be transferred. Your order is not paid.
-</p>
-      <button class="header-btn" onclick="placeOrder()">
-        Place Order
-      </button>
-
-      <p id="orderMessage"></p>
-    </div>
-  </div>
-</div>
-  <!-- SELLER ORDERS SECTION -->
-<section id="sellerOrders" class="section" style="display:none;">
-  <div class="container">
-    <h2>My Customer Orders</h2>
-    <p>Orders placed for your products will appear here.</p>
-
-    <div id="sellerOrdersList">
-      <p>Loading orders...</p>
-    </div>
-  </div>
-</section>
-  <!-- BUYER ORDERS SECTION -->
-<section id="buyerOrders" class="section" style="display:none;">
-  <div class="container">
-    <h2>My Orders</h2>
-    <p>Products you have ordered will appear here.</p>
-
-    <div id="buyerOrdersList">
-      <p>Loading orders...</p>
-    </div>
-  </div>
-</section>
   <!-- PRODUCT DETAILS MODAL -->
 <div id="productModal" class="product-modal"
      style="display:none;"
