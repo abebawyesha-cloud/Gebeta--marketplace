@@ -1107,11 +1107,10 @@ if (session) loadBuyerOrders();
     container.append(login, signup);
   }
 }
-
 supabaseClient.auth.onAuthStateChange((event, session) => {
   updateAuthUI(session);
+  checkAdminAccess(session?.user?.id);
 });
-
 supabaseClient.auth.getSession().then(({ data }) => {
   updateAuthUI(data.session);
 });
