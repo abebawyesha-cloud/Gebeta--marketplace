@@ -447,7 +447,67 @@ async function loadAdminProducts() {
     deleteBtn.style.border = 'none';
     deleteBtn.style.borderRadius = '5px';
     deleteBtn.style.cursor = 'pointer';
+    const editBtn = document.createElement('button');
+editBtn.textContent = 'Edit';
+editBtn.style.marginLeft = '8px';
+editBtn.style.background = '#2563eb';
+editBtn.style.color = 'white';
+editBtn.style.padding = '6px 12px';
+editBtn.style.border = 'none';
+editBtn.style.borderRadius = '5px';
+editBtn.style.cursor = 'pointer';
 
+editBtn.onclick = async function () {
+  const newTitle = prompt('Product title:', product.title || '');
+  if (newTitle === null) return;
+
+  const newDescription = prompt('Description:', product.description || '');
+  if (newDescription === null) return;
+
+  const newCategory = prompt('Category:', product.category || '');
+  if (newCategory === null) return;
+
+  const newPrice = prompt('Price:', product.price || '');
+  if (newPrice === null) return;
+
+  const newSellerName = prompt('Seller name:', product.seller_name || '');
+  if (newSellerName === null) return;
+
+  const newLocation = prompt('Location:', product.location || '');
+  if (newLocation === null) return;
+
+  const newPhone = prompt('Phone:', product.phone || '');
+  if (newPhone === null) return;
+
+  if (!newTitle.trim() || !newCategory.trim() ||
+      !newPrice.trim() || isNaN(Number(newPrice)) ||
+      Number(newPrice) <= 0) {
+    alert('Please enter a valid title, category and price.');
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from('products')
+    .update({
+      title: newTitle.trim(),
+      description: newDescription,
+      category: newCategory.trim(),
+      price: Number(newPrice),
+      seller_name: newSellerName,
+      location: newLocation,
+      phone: newPhone
+    })
+    .eq('id', product.id);
+
+  if (error) {
+    alert('Update failed: ' + error.message);
+    return;
+  }
+
+  alert('Product updated successfully.');
+  await loadAdminProducts();
+  await loadProducts();
+};
     deleteBtn.onclick = async function () {
       const confirmed = confirm(
         'Are you sure you want to delete this product?'
