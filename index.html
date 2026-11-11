@@ -365,12 +365,16 @@ const product = {
 
   await loadProducts();
 });
-  
-async function checkAdminAccess(userId) {
+  async function checkAdminAccess(userId) {
+  const dashboard = document.getElementById('adminDashboard');
+
   if (!userId) {
-    document.getElementById('adminDashboard').style.display = 'none';
+    dashboard.style.display = 'none';
     return;
   }
+
+  dashboard.style.display = 'none';
+
   const { data, error } = await supabaseClient
     .from('admin_users')
     .select('user_id')
@@ -383,12 +387,26 @@ async function checkAdminAccess(userId) {
   }
 
   if (data) {
-    const dashboard = document.getElementById('adminDashboard');
     dashboard.style.display = 'block';
+
+    const { data: stats, error: statsError } =
+      await supabaseClient.rpc('get_admin_stats');
+
+    if (statsError) {
+      console.error('Stats error:', statsError.message);
+      document.getElementById('totalUsers').textContent = 'Unavailable';
+      document.getElementById('totalProducts').textContent = 'Unavailable';
+    } else if (stats && stats.length > 0) {
+      document.getElementById('totalUsers').textContent =
+        stats[0].total_users;
+
+      document.getElementById('totalProducts').textContent =
+        stats[0].total_products;
+    }
+
     loadAdminProducts();
   }
 }
-
 async function loadAdminProducts() {
   const list = document.getElementById('adminProductsList');
 
