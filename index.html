@@ -1015,7 +1015,9 @@ async function placeOrder() {
 document.getElementById('detailContact').onclick = function() {
   contactSeller(product.phone, product.title);
 };
-
+document.getElementById('messageSeller').onclick = function() {
+  startChat(product);
+};
 // DIGITAL PRODUCT DOWNLOAD
 const downloadBox = document.getElementById('digitalDownloadBox');
 const downloadButton = document.getElementById('digitalDownloadButton');
