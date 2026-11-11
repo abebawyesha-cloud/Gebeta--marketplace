@@ -529,8 +529,7 @@ editBtn.onclick = async function () {
       loadAdminProducts();
       loadProducts();
     };
-
-    item.append(details, deleteBtn);
+item.append(details, editBtn, deleteBtn);
     list.appendChild(item);
   });
 }
