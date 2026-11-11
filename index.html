@@ -582,6 +582,8 @@ item.append(details, editBtn, deleteBtn);
   data.forEach(product => {
     const card = document.createElement('article');
     card.className = 'product database-product';
+   card.dataset.productId = product.id;
+card.dataset.sellerId = product.seller_id || ''; 
     card.dataset.title = product.title || '';
 card.dataset.description = product.description || '';
 card.dataset.category = product.category || '';
