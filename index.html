@@ -649,6 +649,8 @@ photo.onclick = function(event) {
   event.stopPropagation();
 
   openProductDetails({
+    id: product.id,
+seller_id: product.seller_id || '',
     title: product.title || '',
     description: product.description || '',
     category: product.category || '',
