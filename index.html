@@ -262,6 +262,33 @@
 
   </div>
 </div>
+  <!-- BUYER SELLER CHAT MODAL -->
+<div id="chatModal" class="product-modal" style="display:none;">
+  <div class="product-details" onclick="event.stopPropagation()">
+
+    <button class="close-product" onclick="closeChat()">✕</button>
+
+    <div class="product-details-info">
+      <h2 id="chatTitle">💬 Chat with Seller</h2>
+
+      <div id="chatMessages"
+           style="height:300px; overflow-y:auto; border:1px solid #ddd; padding:12px; margin:15px 0;">
+        Messages will appear here.
+      </div>
+
+      <textarea id="chatInput"
+                placeholder="Write your message..."
+                style="width:100%; padding:12px;"></textarea>
+
+      <button id="sendChatButton" class="header-btn" type="button">
+        Send Message
+      </button>
+
+      <p id="chatStatus"></p>
+    </div>
+
+  </div>
+</div>
   <footer class="footer">
     <h2>Gebeta 🇪🇹</h2>
     <p>Ethiopia's Digital Marketplace</p>
