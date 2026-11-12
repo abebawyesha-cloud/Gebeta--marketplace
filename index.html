@@ -1311,7 +1311,71 @@ async function loginUser() {
   closeAuth();
   alert('Welcome to Gebeta!');
 }
-    
+let activeChatId = null;
+let currentChatUserId = null;
+
+async function startChat(product) {
+  const { data: { user }, error: userError } =
+    await supabaseClient.auth.getUser();
+
+  if (userError || !user) {
+    alert('Please login first to message the seller.');
+    openLogin();
+    return;
+  }
+
+  if (!product.id || !product.seller_id) {
+    alert('Chat is not available for this listing yet.');
+    return;
+  }
+
+  if (user.id === product.seller_id) {
+    alert('You cannot message yourself.');
+    return;
+  }
+
+  let { data: chat, error } = await supabaseClient
+    .from('chats')
+    .select('*')
+    .eq('product_id', product.id)
+    .eq('buyer_id', user.id)
+    .eq('seller_id', product.seller_id)
+    .maybeSingle();
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  if (!chat) {
+    const result = await supabaseClient
+      .from('chats')
+      .insert({
+        buyer_id: user.id,
+        seller_id: product.seller_id,
+        product_id: product.id
+      })
+      .select()
+      .single();
+
+    chat = result.data;
+
+    if (result.error) {
+      alert(result.error.message);
+      return;
+    }
+  }
+
+  activeChatId = chat.id;
+  currentChatUserId = user.id;
+
+  document.getElementById('chatTitle').textContent =
+    'Chat with Seller: ' + product.title;
+
+  document.getElementById('chatModal').style.display = 'flex';
+
+  await loadChatMessages();
+}    
   </script>
  <script>
 if ('serviceWorker' in navigator) {
