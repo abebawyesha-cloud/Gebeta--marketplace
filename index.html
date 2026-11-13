@@ -1375,7 +1375,46 @@ async function startChat(product) {
   document.getElementById('chatModal').style.display = 'flex';
 
   await loadChatMessages();
-}    
+} 
+   async function loadChatMessages() {
+  const box = document.getElementById('chatMessages');
+
+  const { data, error } = await supabaseClient
+    .from('messages')
+    .select('*')
+    .eq('chat_id', activeChatId)
+    .order('created_at', { ascending: true });
+
+  if (error) {
+    box.textContent = error.message;
+    return;
+  }
+
+  box.innerHTML = '';
+
+  (data || []).forEach(message => {
+    const item = document.createElement('div');
+    item.textContent = message.message_text;
+    item.style.padding = '10px';
+    item.style.margin = '8px 0';
+    item.style.borderRadius = '8px';
+
+    if (message.sender_id === currentChatUserId) {
+      item.style.background = '#d1fae5';
+      item.style.textAlign = 'right';
+    } else {
+      item.style.background = '#f3f4f6';
+    }
+
+    box.appendChild(item);
+  });
+
+  box.scrollTop = box.scrollHeight;
+}
+
+function closeChat() {
+  document.getElementById('chatModal').style.display = 'none';
+} 
   </script>
  <script>
 if ('serviceWorker' in navigator) {
