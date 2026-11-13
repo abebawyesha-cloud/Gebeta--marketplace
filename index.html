@@ -1549,10 +1549,18 @@ function closeChat() {
     duration.textContent = plan.duration_days + ' Days';
 
     const features = document.createElement('p');
-    features.textContent = (plan.features || []).join(' • ');
+features.textContent = (plan.features || []).join(' • ');
 
-    card.append(title, price, duration, features);
-    list.appendChild(card);
+const chooseButton = document.createElement('button');
+chooseButton.textContent = 'Choose Package';
+chooseButton.className = 'header-btn';
+
+chooseButton.onclick = function() {
+  requestSellerPackage(plan.id, plan.package_name);
+};
+
+card.append(title, price, duration, features, chooseButton);
+list.appendChild(card);
   });
 }
 
