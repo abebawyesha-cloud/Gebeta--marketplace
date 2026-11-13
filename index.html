@@ -1504,6 +1504,59 @@ function closeChat() {
     list.appendChild(button);
   }
 }
+    async function loadSellerPackages() {
+  const list = document.getElementById('sellerPackageList');
+
+  if (!list) return;
+
+  list.textContent = 'Loading packages...';
+
+  const { data: packages, error } = await supabaseClient
+    .from('seller_package_plans')
+    .select('*')
+    .eq('is_active', true)
+    .order('id', { ascending: true });
+
+  if (error) {
+    list.textContent = 'Error: ' + error.message;
+    return;
+  }
+
+  list.innerHTML = '';
+
+  if (!packages || packages.length === 0) {
+    list.textContent = 'No packages available.';
+    return;
+  }
+
+  packages.forEach(plan => {
+    const card = document.createElement('div');
+
+    card.style.border = '1px solid #ddd';
+    card.style.borderRadius = '12px';
+    card.style.padding = '18px';
+    card.style.margin = '12px 0';
+
+    const title = document.createElement('h3');
+    title.textContent = plan.package_name;
+
+    const price = document.createElement('p');
+    price.textContent = plan.price_etb === null
+      ? 'Price coming soon'
+      : 'ETB ' + Number(plan.price_etb).toLocaleString();
+
+    const duration = document.createElement('p');
+    duration.textContent = plan.duration_days + ' Days';
+
+    const features = document.createElement('p');
+    features.textContent = (plan.features || []).join(' • ');
+
+    card.append(title, price, duration, features);
+    list.appendChild(card);
+  });
+}
+
+loadSellerPackages();
     document.getElementById('sendChatButton').addEventListener('click', async function() {
   const input = document.getElementById('chatInput');
   const status = document.getElementById('chatStatus');
