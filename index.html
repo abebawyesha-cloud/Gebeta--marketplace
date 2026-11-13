@@ -1679,9 +1679,14 @@ loadSellerPackages();
       }
 
       alert('Package approved!');
-      loadAdminPackageRequests();
+          loadAdminPackageRequests();
     };
 
+    card.appendChild(info);
+    card.appendChild(approve);
+    list.appendChild(card);
+  });
+} 
     const reject = document.createElement('button');
     reject.textContent = 'Reject';
     reject.style.marginLeft = '10px';
