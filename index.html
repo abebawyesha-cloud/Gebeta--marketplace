@@ -745,6 +745,8 @@ document.getElementById('digitalProductGrid')?.addEventListener('click', functio
   if (!card) return;
 
   openProductDetails({
+   id: Number(card.dataset.productId),
+seller_id: card.dataset.sellerId || '', 
     title: card.dataset.title || card.querySelector('h3')?.textContent || '',
     description: card.dataset.description || '',
     category: card.dataset.category || card.querySelector('small')?.textContent || '',
