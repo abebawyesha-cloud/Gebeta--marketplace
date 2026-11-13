@@ -1315,10 +1315,11 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
   checkAdminAccess(session?.user?.id);
   setTimeout(() => loadAdminPackageRequests(), 0);
 });
-    supabaseClient.auth.getSession().then(({ data }) => {
+supabaseClient.auth.getSession().then(({ data }) => {
   updateAuthUI(data.session);
   checkAdminAccess(data.session?.user?.id);
-});
+  loadAdminPackageRequests();
+});  
 async function loginUser() {
   const email = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value;
