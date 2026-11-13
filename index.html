@@ -1431,6 +1431,70 @@ async function startChat(product) {
 function closeChat() {
   document.getElementById('chatModal').style.display = 'none';
 } 
+    async function loadSellerChats() {
+  const list = document.getElementById('sellerChatList');
+
+  const { data: { user } } =
+    await supabaseClient.auth.getUser();
+
+  if (!user) {
+    list.textContent = 'Please login first.';
+    return;
+  }
+
+  list.textContent = 'Loading conversations...';
+
+  const { data: chats, error } = await supabaseClient
+    .from('chats')
+    .select('*')
+    .eq('seller_id', user.id)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    list.textContent = error.message;
+    return;
+  }
+
+  list.innerHTML = '';
+
+  if (!chats || chats.length === 0) {
+    list.textContent = 'No messages yet.';
+    return;
+  }
+
+  for (const chat of chats) {
+    const { data: product } = await supabaseClient
+      .from('products')
+      .select('title')
+      .eq('id', chat.product_id)
+      .maybeSingle();
+
+    const button = document.createElement('button');
+
+    button.textContent =
+      '💬 ' + (product?.title || 'Product') +
+      ' — Buyer: ' + chat.buyer_id.slice(0, 8);
+
+    button.className = 'header-btn';
+    button.style.display = 'block';
+    button.style.margin = '10px 0';
+    button.style.width = '100%';
+
+    button.onclick = async function() {
+      activeChatId = chat.id;
+      currentChatUserId = user.id;
+
+      document.getElementById('chatTitle').textContent =
+        'Chat about: ' + (product?.title || 'Product');
+
+      document.getElementById('chatModal').style.display = 'flex';
+
+      await loadChatMessages();
+    };
+
+    list.appendChild(button);
+  }
+}
     document.getElementById('sendChatButton').addEventListener('click', async function() {
   const input = document.getElementById('chatInput');
   const status = document.getElementById('chatStatus');
