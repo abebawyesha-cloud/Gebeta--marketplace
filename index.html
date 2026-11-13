@@ -1598,6 +1598,113 @@ loadSellerPackages();
 
   alert(packageName + ' package request submitted!');
 }
+    async function loadAdminPackageRequests() {
+  const section = document.getElementById('adminPackageRequests');
+  const list = document.getElementById('adminPackageRequestList');
+
+  const { data: { user } } = await supabaseClient.auth.getUser();
+
+  if (!user) {
+    section.style.display = 'none';
+    return;
+  }
+
+  const { data: role } = await supabaseClient
+    .from('user_roles')
+    .select('role')
+    .eq('user_id', user.id)
+    .maybeSingle();
+
+  if (role?.role !== 'admin') {
+    section.style.display = 'none';
+    return;
+  }
+
+  section.style.display = 'block';
+  list.textContent = 'Loading requests...';
+
+  const { data: requests, error } = await supabaseClient
+    .from('seller_subscriptions')
+    .select('*, seller_package_plans(package_name, price_etb, duration_days)')
+    .eq('status', 'pending')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    list.textContent = 'Error: ' + error.message;
+    return;
+  }
+
+  list.innerHTML = '';
+
+  if (!requests || requests.length === 0) {
+    list.textContent = 'No pending package requests.';
+    return;
+  }
+
+  requests.forEach(request => {
+    const card = document.createElement('div');
+    card.style.border = '1px solid #ddd';
+    card.style.padding = '15px';
+    card.style.margin = '12px 0';
+    card.style.borderRadius = '10px';
+
+    const info = document.createElement('p');
+    info.textContent =
+      'Package: ' + (request.seller_package_plans?.package_name || 'Unknown') +
+      ' | Seller ID: ' + request.seller_id +
+      ' | Status: ' + request.status;
+
+    const approve = document.createElement('button');
+    approve.textContent = 'Approve';
+    approve.className = 'header-btn';
+
+    approve.onclick = async function() {
+      const days = request.seller_package_plans?.duration_days || 30;
+      const start = new Date();
+      const end = new Date(start);
+      end.setDate(end.getDate() + days);
+
+      const { error } = await supabaseClient
+        .from('seller_subscriptions')
+        .update({
+          status: 'active',
+          starts_at: start.toISOString(),
+          ends_at: end.toISOString()
+        })
+        .eq('id', request.id);
+
+      if (error) {
+        alert(error.message);
+        return;
+      }
+
+      alert('Package approved!');
+      loadAdminPackageRequests();
+    };
+
+    const reject = document.createElement('button');
+    reject.textContent = 'Reject';
+    reject.style.marginLeft = '10px';
+
+    reject.onclick = async function() {
+      const { error } = await supabaseClient
+        .from('seller_subscriptions')
+        .update({ status: 'cancelled' })
+        .eq('id', request.id);
+
+      if (error) {
+        alert(error.message);
+        return;
+      }
+
+      alert('Package request rejected.');
+      loadAdminPackageRequests();
+    };
+
+    card.append(info, approve, reject);
+    list.appendChild(card);
+  });
+}
     document.getElementById('sendChatButton').addEventListener('click', async function() {
   const input = document.getElementById('chatInput');
   const status = document.getElementById('chatStatus');
