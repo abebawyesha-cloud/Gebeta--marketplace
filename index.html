@@ -1415,6 +1415,41 @@ async function startChat(product) {
 function closeChat() {
   document.getElementById('chatModal').style.display = 'none';
 } 
+    document.getElementById('sendChatButton').addEventListener('click', async function() {
+  const input = document.getElementById('chatInput');
+  const status = document.getElementById('chatStatus');
+  const messageText = input.value.trim();
+
+  if (!messageText) {
+    status.textContent = 'Please write a message.';
+    return;
+  }
+
+  if (!activeChatId || !currentChatUserId) {
+    status.textContent = 'Chat is not ready.';
+    return;
+  }
+
+  status.textContent = 'Sending...';
+
+  const { error } = await supabaseClient
+    .from('messages')
+    .insert({
+      chat_id: activeChatId,
+      sender_id: currentChatUserId,
+      message_text: messageText
+    });
+
+  if (error) {
+    status.textContent = 'Send failed: ' + error.message;
+    return;
+  }
+
+  input.value = '';
+  status.textContent = '';
+
+  await loadChatMessages();
+});
   </script>
  <script>
 if ('serviceWorker' in navigator) {
