@@ -1518,12 +1518,14 @@ function closeChat() {
   if (!list) return;
 
   list.textContent = 'Loading packages...';
-
+console.log('Loading seller packages...');
   const { data: packages, error } = await supabaseClient
     .from('seller_package_plans')
     .select('*')
     .eq('is_active', true)
     .order('id', { ascending: true });
+      console.log('Packages:', packages);
+console.log('Package error:', error);
 
   if (error) {
     list.textContent = 'Error: ' + error.message;
