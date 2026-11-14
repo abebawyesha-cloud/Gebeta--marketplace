@@ -1096,7 +1096,6 @@ function closeProductDetails(event) {
   );
 }
 let selectedCategory = 'all';
-
 function applyProductFilters() {
   const query = document.getElementById('searchInput').value
     .toLowerCase().trim();
@@ -1110,7 +1109,10 @@ function applyProductFilters() {
   const location = document.getElementById('locationFilter').value
     .toLowerCase().trim();
 
-  const products = document.querySelectorAll('#productGrid .product');
+  const products = document.querySelectorAll(
+    '#productGrid .product, #digitalProductGrid .product'
+  );
+
   let found = 0;
 
   products.forEach(product => {
@@ -1129,8 +1131,7 @@ function applyProductFilters() {
     const price = Number(String(priceText).replace(/[^\d.]/g, '')) || 0;
 
     const productLocation = (
-      product.dataset.location ||
-      product.textContent
+      product.dataset.location || product.textContent
     ).toLowerCase();
 
     const text = (title + ' ' + description + ' ' + category)
@@ -1164,7 +1165,6 @@ function applyProductFilters() {
   document.getElementById('noResults').style.display =
     found === 0 ? 'block' : 'none';
 }
-
 function filterCategory(category) {
   selectedCategory = category.toLowerCase();
   document.getElementById('searchInput').value = '';
