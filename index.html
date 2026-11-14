@@ -595,12 +595,14 @@ item.append(details, editBtn, deleteBtn);
     console.error('Could not load products:', error.message);
     return;
   }  
+const productGrid = document.getElementById('productGrid');
+const digitalProductGrid = document.getElementById('digitalProductGrid');
 
-  const productGrid = document.getElementById('productGrid');
+productGrid.querySelectorAll('.database-product')
+  .forEach(card => card.remove());
 
-  productGrid.querySelectorAll('.database-product')
-    .forEach(card => card.remove());
-
+digitalProductGrid.querySelectorAll('.database-product')
+  .forEach(card => card.remove());
   data.forEach(product => {
     const card = document.createElement('article');
     card.className = 'product database-product';
