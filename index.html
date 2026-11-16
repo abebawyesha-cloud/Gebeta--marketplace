@@ -1385,9 +1385,8 @@ async function signupUser() {
     ? 'Account created successfully!'
     : 'Account created. Please check your email to confirm.';
 }
-    async function loadSellerProfile() {
+  async function loadSellerProfile() {
   const section = document.getElementById('sellerProfile');
-
   if (!section) return;
 
   const { data: { user }, error: userError } =
@@ -1398,26 +1397,81 @@ async function signupUser() {
     return;
   }
 
-  const { data: product, error } = await supabaseClient
+  const { data: products, error } = await supabaseClient
     .from('products')
-    .select('seller_name, location')
+    .select('*')
     .eq('seller_id', user.id)
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle();
+    .order('created_at', { ascending: false });
 
   if (error) {
-    console.error('Seller profile error:', error.message);
+    console.error('Seller products error:', error.message);
+    return;
   }
 
+  const firstProduct = products?.[0];
+
   document.getElementById('profileSellerName').textContent =
-    product?.seller_name ||
+    firstProduct?.seller_name ||
     user.user_metadata?.full_name ||
     user.email ||
     'Seller';
 
   document.getElementById('profileSellerLocation').textContent =
-    '📍 ' + (product?.location || 'Ethiopia');
+    '📍 ' + (firstProduct?.location || 'Ethiopia');
+
+  const listingContainer =
+    document.getElementById('sellerProfileProducts');
+
+  listingContainer.innerHTML = '';
+
+  document.getElementById('profileProductCount').textContent =
+    products.length;
+
+  if (products.length === 0) {
+    listingContainer.textContent = 'You have not published any products yet.';
+  }
+
+  products.forEach(product => {
+    const card = document.createElement('article');
+    card.className = 'product';
+
+    const imageBox = document.createElement('div');
+    imageBox.className = 'product-img';
+
+    const images = Array.isArray(product.image_urls)
+      ? product.image_urls
+      : (product.image_url ? [product.image_url] : []);
+
+    if (images.length > 0) {
+      const image = document.createElement('img');
+      image.src = images[0];
+      image.alt = product.title || 'Product';
+      image.style.width = '100%';
+      image.style.height = '100%';
+      image.style.objectFit = 'cover';
+      imageBox.appendChild(image);
+    } else {
+      imageBox.textContent = '🛍️';
+    }
+
+    const info = document.createElement('div');
+    info.className = 'product-info';
+
+    const title = document.createElement('h3');
+    title.textContent = product.title || '';
+
+    const price = document.createElement('div');
+    price.className = 'price';
+    price.textContent =
+      'ETB ' + Number(product.price || 0).toLocaleString();
+
+    const location = document.createElement('p');
+    location.textContent = product.location || '';
+
+    info.append(title, price, location);
+    card.append(imageBox, info);
+    listingContainer.appendChild(card);
+  });
 
   section.style.display = 'block';
 }
