@@ -1161,6 +1161,63 @@ async function placeOrder() {
 
   message.textContent = 'Order placed successfully! Order ID: ' + data;
 }
+   async function openPublicSellerProfile(sellerId) {
+  const { data: products, error } = await supabaseClient
+    .from('products')
+    .select('*')
+    .eq('seller_id', sellerId)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    alert('Could not load seller profile: ' + error.message);
+    return;
+  }
+
+  if (!products || products.length === 0) {
+    alert('No products found for this seller.');
+    return;
+  }
+
+  const firstProduct = products[0];
+
+  document.getElementById('profileSellerName').textContent =
+    firstProduct.seller_name || 'Seller';
+
+  document.getElementById('profileSellerLocation').textContent =
+    '📍 ' + (firstProduct.location || 'Ethiopia');
+
+  const listingContainer =
+    document.getElementById('sellerProfileProducts');
+
+  listingContainer.innerHTML = '';
+
+  document.getElementById('profileProductCount').textContent =
+    products.length;
+
+  products.forEach(product => {
+    const card = document.createElement('article');
+    card.className = 'product';
+
+    const title = document.createElement('h3');
+    title.textContent = product.title || '';
+
+    const price = document.createElement('p');
+    price.textContent =
+      'ETB ' + Number(product.price || 0).toLocaleString();
+
+    const location = document.createElement('p');
+    location.textContent = product.location || '';
+
+    card.append(title, price, location);
+    listingContainer.appendChild(card);
+  });
+
+  document.getElementById('sellerProfile').style.display = 'block';
+
+  document.getElementById('sellerProfile').scrollIntoView({
+    behavior: 'smooth'
+  });
+} 
     function openProductDetails(product) {
   document.getElementById('detailTitle').textContent =
     product.title || '';
