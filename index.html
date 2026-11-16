@@ -734,16 +734,18 @@ callButton.onclick = () => {
 info.append(category, title, description, price, location, button, callButton);
     card.append(image, info);
   const categoryName = (product.category || '').toLowerCase();
-
 if (
   categoryName.includes('digital') ||
   categoryName.includes('ዲጂታል')
 ) {
-  const digitalGrid = document.getElementById('digitalProductGrid');
+  digitalProductGrid.prepend(card);
 
-  if (digitalGrid) {
-    digitalGrid.prepend(card);
-  }
+} else if (
+  categoryName.includes('service') ||
+  categoryName.includes('አገልግሎት')
+) {
+  serviceGrid.prepend(card);
+
 } else {
   productGrid.prepend(card);
 }
