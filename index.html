@@ -604,12 +604,14 @@ item.append(details, editBtn, deleteBtn);
   }  
 const productGrid = document.getElementById('productGrid');
 const digitalProductGrid = document.getElementById('digitalProductGrid');
-
+const serviceGrid = document.getElementById('serviceGrid');
 productGrid.querySelectorAll('.database-product')
   .forEach(card => card.remove());
 
 digitalProductGrid.querySelectorAll('.database-product')
   .forEach(card => card.remove());
+   serviceGrid.querySelectorAll('.database-product')
+  .forEach(card => card.remove()); 
   data.forEach(product => {
     const card = document.createElement('article');
     card.className = 'product database-product';
