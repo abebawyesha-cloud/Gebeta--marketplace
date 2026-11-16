@@ -1119,11 +1119,9 @@ function applyProductFilters() {
 
   const location = document.getElementById('locationFilter').value
     .toLowerCase().trim();
-
-  const products = document.querySelectorAll(
-    '#productGrid .product, #digitalProductGrid .product'
-  );
-
+const products = document.querySelectorAll(
+  '#productGrid .product, #digitalProductGrid .product, #serviceGrid .product'
+);
   let found = 0;
 
   products.forEach(product => {
