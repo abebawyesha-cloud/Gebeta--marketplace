@@ -196,6 +196,67 @@
   <h2>💬 Seller Inbox</h2>
   <div id="sellerChatList">Loading conversations...</div>
 </section>
+    
+<!-- SELLER PROFILE -->
+<section id="sellerProfile" style="display:none; padding:20px;">
+
+  <div style="background:#064e3b; color:white; padding:35px 20px; border-radius:15px;">
+    <h2>🇪🇹 Gebeta Seller Profile</h2>
+    <p>Your business. Your products. Your customers.</p>
+  </div>
+
+  <div style="display:flex; align-items:center; gap:15px; margin-top:-10px; padding:20px;">
+    <div style="width:85px; height:85px; border-radius:50%; background:#e5e7eb; display:flex; align-items:center; justify-content:center; font-size:35px;">
+      👤
+    </div>
+    <div>
+      <h2 id="profileSellerName">Seller Name</h2>
+      <p id="profileSellerLocation">📍 Ethiopia</p>
+      <button onclick="shareSellerProfile()">Share</button>
+      <button onclick="editSellerProfile()">Edit Profile</button>
+    </div>
+  </div>
+
+  <div style="display:flex; justify-content:space-around; text-align:center; padding:15px; background:#f3f4f6; border-radius:12px;">
+    <div>
+      <h2 id="profileProductCount">0</h2>
+      <p>Listings</p>
+    </div>
+    <div>
+      <h2 id="profileFollowerCount">0</h2>
+      <p>Followers</p>
+    </div>
+    <div>
+      <h2>—</h2>
+      <p>Rating</p>
+    </div>
+  </div>
+
+  <div style="display:flex; justify-content:space-around; margin-top:25px; border-bottom:1px solid #ddd;">
+    <button onclick="showSellerTab('listings')">Listings</button>
+    <button onclick="showSellerTab('reviews')">Reviews</button>
+    <button onclick="showSellerTab('about')">About</button>
+  </div>
+
+  <div id="sellerListingsTab" style="padding:15px;">
+    <h3>My Listings</h3>
+    <div id="sellerProfileProducts" class="product-grid">
+      Loading products...
+    </div>
+  </div>
+
+  <div id="sellerReviewsTab" style="display:none; padding:15px;">
+    <h3>Reviews</h3>
+    <p>Reviews will appear here.</p>
+  </div>
+
+  <div id="sellerAboutTab" style="display:none; padding:15px;">
+    <h3>About Seller</h3>
+    <p id="profileSellerAbout">Welcome to my shop on Gebeta.</p>
+  </div>
+
+</section>
+
     <!-- ADMIN PACKAGE REQUESTS -->
 <section id="adminPackageRequests" style="display:none; padding:30px;">
   <h2>💎 Seller Package Requests</h2>
