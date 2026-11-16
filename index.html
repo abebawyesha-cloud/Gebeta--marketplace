@@ -1439,6 +1439,15 @@ function updateAuthUI(session) {
   }
 
   productForm.style.display = session ? '' : 'none';
+  const sellerProfile = document.getElementById('sellerProfile');
+
+if (sellerProfile) {
+  sellerProfile.style.display = session ? 'block' : 'none';
+
+  if (session) {
+    loadSellerProfile();
+  }
+}
   const sellerInbox = document.getElementById('sellerInbox');
 
 if (sellerInbox) {
