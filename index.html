@@ -730,8 +730,37 @@ callButton.onclick = () => {
   }
   window.location.href = 'tel:' + product.phone;
 };
+if (
+  product.category &&
+  product.category.toLowerCase().includes('digital') &&
+  product.digital_file_path
+) {
+  const downloadButton = document.createElement('button');
+  downloadButton.textContent = '📥 Download Digital Product';
 
-info.append(category, title, description, price, location, button, callButton);
+  downloadButton.onclick = async () => {
+    const { data, error } = await supabaseClient.storage
+      .from('digital-products')
+      .createSignedUrl(product.digital_file_path, 60);
+
+    if (error) {
+      alert('Download error: ' + error.message);
+      return;
+    }
+
+    window.open(data.signedUrl, '_blank');
+  };
+
+  info.append(
+    category, title, description, price, location,
+    downloadButton, button, callButton
+  );
+} else {
+  info.append(
+    category, title, description, price, location,
+    button, callButton
+  );
+}
     card.append(image, info);
   const categoryName = (product.category || '').toLowerCase();
 if (
