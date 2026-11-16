@@ -1152,11 +1152,12 @@ const products = document.querySelectorAll(
     const selected = selectedCategory.toLowerCase();
 
     const matchesCategory = selected === 'all' ||
-      (selected === 'digital'
-        ? productCategory === 'digital' ||
-          productCategory === 'digital products'
-        : productCategory === selected);
-
+  (selected === 'digital'
+    ? productCategory.includes('digital')
+    : selected === 'services'
+      ? productCategory.includes('service') ||
+        productCategory.includes('አገልግሎት')
+      : productCategory === selected);
     const matchesPrice = price >= minPrice && price <= maxPrice;
     const matchesLocation = !location ||
       productLocation.includes(location);
