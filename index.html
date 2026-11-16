@@ -1385,6 +1385,42 @@ async function signupUser() {
     ? 'Account created successfully!'
     : 'Account created. Please check your email to confirm.';
 }
+    async function loadSellerProfile() {
+  const section = document.getElementById('sellerProfile');
+
+  if (!section) return;
+
+  const { data: { user }, error: userError } =
+    await supabaseClient.auth.getUser();
+
+  if (userError || !user) {
+    section.style.display = 'none';
+    return;
+  }
+
+  const { data: product, error } = await supabaseClient
+    .from('products')
+    .select('seller_name, location')
+    .eq('seller_id', user.id)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) {
+    console.error('Seller profile error:', error.message);
+  }
+
+  document.getElementById('profileSellerName').textContent =
+    product?.seller_name ||
+    user.user_metadata?.full_name ||
+    user.email ||
+    'Seller';
+
+  document.getElementById('profileSellerLocation').textContent =
+    '📍 ' + (product?.location || 'Ethiopia');
+
+  section.style.display = 'block';
+}
 function updateAuthUI(session) {
   const container = document.querySelector('.auth-buttons');
   if (!container) return;
