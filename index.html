@@ -1176,10 +1176,21 @@ async function placeOrder() {
 
   document.getElementById('detailLocation').textContent =
     'Location: ' + (product.location || '');
+const sellerElement = document.getElementById('detailSeller');
 
-  document.getElementById('detailSeller').textContent =
-    'Seller: ' + (product.seller || '');
+sellerElement.textContent = 'Seller: ' + (product.seller || '');
+sellerElement.style.cursor = 'pointer';
+sellerElement.style.color = '#064e3b';
+sellerElement.style.textDecoration = 'underline';
 
+sellerElement.onclick = function() {
+  if (!product.seller_id) {
+    alert('Seller profile is not available.');
+    return;
+  }
+
+  openPublicSellerProfile(product.seller_id);
+};
   document.getElementById('detailPhone').textContent =
     'Phone: ' + (product.phone || '');
 
