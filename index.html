@@ -923,8 +923,12 @@ if (
   categoryName.includes('service') ||
   categoryName.includes('አገልግሎት')
 ) {
+  
+if (product.is_featured) {
   serviceGrid.prepend(card);
-
+} else {
+  serviceGrid.append(card);
+}
 } else {
   productGrid.prepend(card);
 }
