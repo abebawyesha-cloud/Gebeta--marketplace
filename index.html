@@ -881,13 +881,11 @@ if (
     card.append(image, info);
    if (user && user.id === product.seller_id) {
   const promoteButton = document.createElement('button');
+promoteButton.textContent = product.is_featured
+  ? '🛑 Stop Promotion'
+  : '⭐ Promote My Product';
 
-  promoteButton.textContent = product.is_featured
-    ? '⭐ Featured'
-    : '⭐ Promote My Product';
-
-  promoteButton.disabled = product.is_featured;
-
+promoteButton.disabled = false;
   promoteButton.addEventListener('click', async () => {
     promoteButton.disabled = true;
 
