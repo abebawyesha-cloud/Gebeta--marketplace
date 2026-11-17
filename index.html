@@ -913,7 +913,11 @@ if (
   categoryName.includes('digital') ||
   categoryName.includes('ዲጂታል')
 ) {
+  if (product.is_featured) {
   digitalProductGrid.prepend(card);
+} else {
+  digitalProductGrid.append(card);
+}
 
 } else if (
   categoryName.includes('service') ||
