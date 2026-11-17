@@ -899,8 +899,11 @@ const { error } = await supabaseClient.rpc(
       promoteButton.disabled = false;
       return;
     }
-
-    alert('Your product is now Featured!');
+alert(
+  product.is_featured
+    ? 'Promotion stopped successfully!'
+    : 'Your product is now Featured!'
+);
     await loadProducts();
   });
 
