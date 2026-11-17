@@ -1547,7 +1547,12 @@ async function signupUser() {
     card.append(imageBox, info);
     listingContainer.appendChild(card);
   });
+const privateDashboard =
+  document.getElementById('privateSellerDashboard');
 
+if (privateDashboard) {
+  privateDashboard.style.display = 'block';
+}
   section.style.display = 'block';
 }
 function updateAuthUI(session) {
