@@ -718,6 +718,7 @@ item.append(details, editBtn, deleteBtn);
     console.error('Could not load products:', error.message);
     return;
   }  
+    const { data: { user } } = await supabaseClient.auth.getUser();
 const productGrid = document.getElementById('productGrid');
 const digitalProductGrid = document.getElementById('digitalProductGrid');
 const serviceGrid = document.getElementById('serviceGrid');
