@@ -888,12 +888,12 @@ promoteButton.textContent = product.is_featured
 promoteButton.disabled = false;
   promoteButton.addEventListener('click', async () => {
     promoteButton.disabled = true;
-
-    const { error } = await supabaseClient.rpc(
-      'promote_my_product',
-      { p_product_id: product.id }
-    );
-
+const { error } = await supabaseClient.rpc(
+  product.is_featured
+    ? 'stop_my_product_promotion'
+    : 'promote_my_product',
+  { p_product_id: product.id }
+);
     if (error) {
       alert('Promotion failed: ' + error.message);
       promoteButton.disabled = false;
