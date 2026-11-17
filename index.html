@@ -930,7 +930,11 @@ if (product.is_featured) {
   serviceGrid.append(card);
 }
 } else {
+if (product.is_featured) {
   productGrid.prepend(card);
+} else {
+  productGrid.append(card);
+}
 }
   });
 }
