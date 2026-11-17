@@ -879,6 +879,35 @@ if (
   );
 }
     card.append(image, info);
+   if (user && user.id === product.seller_id) {
+  const promoteButton = document.createElement('button');
+
+  promoteButton.textContent = product.is_featured
+    ? '⭐ Featured'
+    : '⭐ Promote My Product';
+
+  promoteButton.disabled = product.is_featured;
+
+  promoteButton.addEventListener('click', async () => {
+    promoteButton.disabled = true;
+
+    const { error } = await supabaseClient.rpc(
+      'promote_my_product',
+      { p_product_id: product.id }
+    );
+
+    if (error) {
+      alert('Promotion failed: ' + error.message);
+      promoteButton.disabled = false;
+      return;
+    }
+
+    alert('Your product is now Featured!');
+    await loadProducts();
+  });
+
+  info.appendChild(promoteButton);
+} 
   const categoryName = (product.category || '').toLowerCase();
 if (
   categoryName.includes('digital') ||
