@@ -926,34 +926,59 @@ alert(
 
   info.appendChild(promoteButton);
 } 
-  const categoryName = (product.category || '').toLowerCase();
+const categoryName = (product.category || '').toLowerCase();
+
+let targetGrid = null;
+
 if (
   categoryName.includes('digital') ||
   categoryName.includes('ዲጂታል')
 ) {
-  if (product.is_featured) {
-  digitalProductGrid.prepend(card);
-} else {
-  digitalProductGrid.append(card);
-}
+  targetGrid = digitalProductGrid;
 
 } else if (
   categoryName.includes('service') ||
   categoryName.includes('አገልግሎት')
 ) {
-  
-if (product.is_featured) {
-  serviceGrid.prepend(card);
+  targetGrid = serviceGrid;
+
+} else if (
+  categoryName.includes('clothing') ||
+  categoryName.includes('ልብስ')
+) {
+  targetGrid = clothingGrid;
+
+} else if (
+  categoryName.includes('shoes') ||
+  categoryName.includes('ጫማ')
+) {
+  targetGrid = shoesGrid;
+
+} else if (
+  categoryName.includes('electronics') ||
+  categoryName.includes('ኤሌክትሮኒክ')
+) {
+  targetGrid = electronicsGrid;
+
+} else if (
+  categoryName.includes('home goods') ||
+  categoryName.includes('home') ||
+  categoryName.includes('የቤት')
+) {
+  targetGrid = homeGoodsGrid;
+
 } else {
-  serviceGrid.append(card);
+  targetGrid = otherGrid;
 }
-} else {
-if (product.is_featured) {
-  productGrid.prepend(card);
-} else {
-  productGrid.append(card);
+
+if (targetGrid) {
+  if (product.is_featured) {
+    targetGrid.prepend(card);
+  } else {
+    targetGrid.append(card);
+  }
 }
-}
+
   });
 }
   // NORMAL PRODUCT GRID
