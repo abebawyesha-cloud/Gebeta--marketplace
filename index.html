@@ -1611,7 +1611,21 @@ async function signupUser() {
     const images = Array.isArray(product.image_urls)
       ? product.image_urls
       : (product.image_url ? [product.image_url] : []);
-
+card.addEventListener('click', () => {
+  openProductDetails({
+    id: product.id,
+    seller_id: product.seller_id || '',
+    title: product.title || '',
+    description: product.description || '',
+    category: product.category || '',
+    price: product.price || '',
+    location: product.location || '',
+    seller: product.seller_name || '',
+    phone: product.phone || '',
+    digital_file_path: product.digital_file_path || '',
+    image: images[0] || ''
+  });
+});
     if (images.length > 0) {
       const image = document.createElement('img');
       image.src = images[0];
