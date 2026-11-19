@@ -730,7 +730,8 @@ item.append(details, editBtn, deleteBtn);
     console.error('Could not load products:', error.message);
     return;
   }  
-  
+  const { data: { user } } =
+  await supabaseClient.auth.getUser();
 const clothingGrid = document.getElementById('clothingGrid');
 const shoesGrid = document.getElementById('shoesGrid');
 const electronicsGrid = document.getElementById('electronicsGrid');
