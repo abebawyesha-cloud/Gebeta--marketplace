@@ -1650,6 +1650,19 @@ if (privateDashboard) {
 }
   section.style.display = 'block';
 }
+    function showSellerTab(tab) {
+  const tabs = {
+    listings: document.getElementById('sellerListingsTab'),
+    reviews: document.getElementById('sellerReviewsTab'),
+    about: document.getElementById('sellerAboutTab')
+  };
+
+  Object.entries(tabs).forEach(([name, element]) => {
+    if (element) {
+      element.style.display = name === tab ? 'block' : 'none';
+    }
+  });
+}
 function updateAuthUI(session) {
   const container = document.querySelector('.auth-buttons');
   if (!container) return;
