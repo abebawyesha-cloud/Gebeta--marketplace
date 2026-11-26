@@ -210,4 +210,105 @@
     padding: 9px 12px;
   }
 }
+/* GEBETA JIJI STYLE HERO */
+.jiji-hero {
+  background: linear-gradient(120deg, #eaf6df, #f7fbeF);
+  min-height: 340px;
+  padding: 45px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  border-radius: 8px;
+}
 
+.hero-content {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero-tag {
+  color: #4b9225;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.jiji-hero h1 {
+  color: #174b2b;
+  font-size: 42px;
+  line-height: 1.15;
+  margin: 14px 0;
+}
+
+.jiji-hero p {
+  color: #526052;
+  font-size: 16px;
+}
+
+.jiji-hero .search {
+  display: flex;
+  background: white;
+  padding: 5px;
+  border-radius: 6px;
+  max-width: 520px;
+  margin-top: 24px;
+  box-shadow: 0 3px 12px #00000012;
+}
+
+.jiji-hero .search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  padding: 14px;
+  outline: none;
+}
+
+.jiji-hero .search button {
+  background: #69b82e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0 22px;
+  font-weight: bold;
+}
+
+.hero-art {
+  flex: 0 1 330px;
+  text-align: center;
+}
+
+.hero-image-placeholder {
+  font-size: 110px;
+  background: white;
+  border-radius: 50%;
+  width: 220px;
+  height: 220px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media(max-width:600px) {
+  .jiji-hero {
+    padding: 30px 18px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .jiji-hero h1 {
+    font-size: 32px;
+  }
+
+  .jiji-hero .search {
+    width: 100%;
+  }
+
+  .jiji-hero .search button {
+    padding: 0 12px;
+  }
+
+  .hero-art {
+    display: none;
+  }
+}
