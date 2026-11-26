@@ -130,3 +130,84 @@
     font-size:16px;
   }
 }
+
+/* GEBETA JIJI STYLE HEADER */
+.main-header {
+  background: #69b82e;
+  padding: 12px 4%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.main-header .logo {
+  color: white;
+  font-size: 27px;
+  font-weight: 800;
+}
+
+.main-header nav {
+  display: flex;
+  gap: 16px;
+  color: white;
+}
+
+.main-header nav a:hover {
+  color: #103d2b;
+}
+
+.header-search {
+  display: flex;
+  flex: 1;
+  max-width: 420px;
+  background: white;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.header-search input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px;
+  border: 0;
+  outline: none;
+}
+
+.header-search button {
+  background: #e5a42d;
+  border: 0;
+  padding: 0 18px;
+}
+
+.sell-header-btn {
+  background: #f5a623;
+  color: white;
+  padding: 12px 22px;
+  font-weight: 800;
+  border-radius: 4px;
+}
+
+@media(max-width:600px) {
+  .main-header {
+    gap: 12px;
+  }
+
+  .main-header nav {
+    order: 4;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .header-search {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .sell-header-btn {
+    padding: 9px 12px;
+  }
+}
+
