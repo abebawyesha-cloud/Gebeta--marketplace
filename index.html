@@ -5,8 +5,406 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gebeta | Ethiopia's Digital Marketplace</title>
   <style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-/* GEBETA CSS WILL BE ADDED HERE */
+body {
+  font-family: Arial, sans-serif;
+  color: #26352c;
+  background: #f5f7f5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  font: inherit;
+}
+
+/* HEADER */
+.main-header {
+  background: #087a3e;
+  color: white;
+  padding: 14px 5%;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.header-search {
+  display: flex;
+  flex: 1;
+  min-width: 200px;
+}
+
+.header-search input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+}
+
+.header-search button {
+  border: none;
+  padding: 0 20px;
+  background: #f4a623;
+  color: #222;
+  border-radius: 0 5px 5px 0;
+}
+
+.main-header nav {
+  display: flex;
+  gap: 15px;
+}
+
+.main-header nav a {
+  font-weight: bold;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.auth-buttons button,
+.sell-header-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.login-btn {
+  background: white;
+  color: #087a3e;
+}
+
+.signup-btn,
+.sell-header-btn {
+  background: #f4a623;
+  color: #222;
+}
+
+/* HERO */
+.jiji-hero {
+  background: linear-gradient(120deg, #075d35, #159653);
+  color: white;
+  padding: 45px 6%;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  align-items: center;
+  gap: 25px;
+}
+
+.jiji-hero h1 {
+  font-size: 32px;
+  line-height: 1.3;
+  margin: 12px 0;
+}
+
+.jiji-hero h2 {
+  margin-bottom: 15px;
+}
+
+.jiji-search {
+  display: flex;
+  background: white;
+  padding: 5px;
+  border-radius: 6px;
+}
+
+.jiji-search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  padding: 13px;
+}
+
+.jiji-search button {
+  background: #f4a623;
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.hero-shopping-icon {
+  font-size: 65px;
+  text-align: center;
+}
+
+/* MARKET THREE COLUMNS */
+.market-layout {
+  display: grid;
+  grid-template-columns: 230px 1fr 250px;
+  gap: 18px;
+  padding: 25px 5%;
+  align-items: stretch;
+}
+
+.market-sidebar,
+.market-banner,
+.post-advert-panel {
+  background: white;
+  border-radius: 8px;
+  padding: 22px;
+  box-shadow: 0 2px 10px #0000000d;
+}
+
+.market-sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.market-category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.market-category-list a {
+  padding: 11px 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.market-category-list a:hover {
+  background: #eaf5ee;
+  color: #087a3e;
+}
+
+.market-banner {
+  background: linear-gradient(135deg, #087a3e, #21a45d);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 260px;
+}
+
+.market-banner h1 {
+  font-size: 30px;
+  margin: 15px 0;
+}
+
+.market-banner a {
+  background: #f4a623;
+  color: #222;
+  padding: 12px 18px;
+  border-radius: 5px;
+  font-weight: bold;
+  width: fit-content;
+  margin-top: 18px;
+}
+
+.post-advert-panel {
+  background: #fff3df;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sell-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.post-advert-panel h2 {
+  margin-bottom: 12px;
+}
+
+.post-advert-panel p {
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.post-advert-panel a {
+  background: #f4a623;
+  color: #222;
+  padding: 12px 16px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* GENERAL SECTIONS */
+section:not(.hero):not(.market-layout) {
+  scroll-margin-top: 20px;
+}
+
+#shop,
+#digital,
+#digital-products,
+#services,
+#sell {
+  padding: 30px 5%;
+}
+
+h2 {
+  line-height: 1.4;
+}
+
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+input,
+select,
+textarea {
+  padding: 10px;
+  border: 1px solid #d5ddd7;
+  border-radius: 5px;
+}
+
+button {
+  border-radius: 5px;
+}
+
+/* PRODUCT GRID */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.product,
+.database-product {
+  background: white;
+  border: 1px solid #e5eae6;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px #0000000a;
+}
+
+.product img,
+.database-product img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 14px;
+}
+
+.price {
+  color: #087a3e;
+  font-size: 19px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+/* FORMS AND MODALS */
+form {
+  max-width: 650px;
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  margin: 7px 0 13px;
+}
+
+.modal {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 95%;
+}
+
+footer {
+  background: #103d2b;
+  color: white;
+  padding: 25px 5%;
+  text-align: center;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .main-header {
+    gap: 12px;
+  }
+
+  .main-header nav {
+    flex-wrap: wrap;
+  }
+
+  .jiji-hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .market-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .market-category-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .market-banner {
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 500px) {
+  .main-header {
+    padding: 12px;
+  }
+
+  .header-search {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .main-header nav {
+    order: 4;
+    width: 100%;
+  }
+
+  .auth-buttons {
+    margin-left: auto;
+  }
+
+  .jiji-hero {
+    padding: 30px 18px;
+  }
+
+  .jiji-hero h1 {
+    font-size: 26px;
+  }
+
+  .market-layout {
+    padding: 15px;
+  }
+
+  #shop,
+  #digital,
+  #digital-products,
+  #services,
+  #sell {
+    padding: 22px 15px;
+  }
+}
 
   </style>
 </head>
